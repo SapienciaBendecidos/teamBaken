@@ -14,7 +14,7 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "mysqlDs"
   },
   "AccessToken": {
     "dataSource": "db",
