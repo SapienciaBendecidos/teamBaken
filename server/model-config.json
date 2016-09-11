@@ -14,7 +14,7 @@
     ]
   },
   "User": {
-    "dataSource": "mysqlDs"
+    "dataSource": "db"
   },
   "AccessToken": {
     "dataSource": "db",
@@ -31,17 +31,5 @@
   "Role": {
     "dataSource": "db",
     "public": false
-  },
-  "Clientes": {
-    "dataSource": "mysqlDs",
-    "public": true,
-    "$promise": {},
-    "$resolved": true
-  },
-  "Tarjetas": {
-    "dataSource": "mysqlDs",
-    "public": true,
-    "$promise": {},
-    "$resolved": true
   }
 }
