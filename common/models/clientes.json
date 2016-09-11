@@ -96,7 +96,8 @@
   "relations": {
     "tarjetas": {
       "type": "hasMany",
-      "model": "Tarjetas"
+      "model": "Tarjetas",
+      "foreignKey": "idCliente"
     }
   },
   "acls": [],
