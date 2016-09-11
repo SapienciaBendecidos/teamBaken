@@ -13,7 +13,7 @@
     "idTarjeta": {
       "type": "Number",
       "id": true,
-      "required": true,
+      "required": false,
       "length": null,
       "precision": 10,
       "scale": 0,
@@ -77,7 +77,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "clientes": {
+      "type": "belongsTo",
+      "model": "Clientes",
+      "foreignKey": "idCliente"
+    }
+  },
   "acls": [],
   "methods": {}
 }
