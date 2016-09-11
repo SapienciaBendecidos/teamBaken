@@ -19,10 +19,10 @@
 -- Table structure for table `clientes`
 --
 
-DROP TABLE IF EXISTS `clientes`;
+DROP TABLE IF EXISTS SBO.`clientes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `clientes` (
+CREATE TABLE SBO.`clientes` (
   `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
   `primer_nombre` varchar(45) NOT NULL,
   `segundo_nombre` varchar(45) DEFAULT NULL,
@@ -36,9 +36,9 @@ CREATE TABLE `clientes` (
 -- Dumping data for table `clientes`
 --
 
-LOCK TABLES `clientes` WRITE;
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+LOCK TABLES SBO.`clientes` WRITE;
+/*!40000 ALTER TABLE SBO.`clientes` DISABLE KEYS */;
+/*!40000 ALTER TABLE SBO.`clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

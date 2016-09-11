@@ -19,10 +19,10 @@
 -- Table structure for table `tarjetas`
 --
 
-DROP TABLE IF EXISTS `tarjetas`;
+DROP TABLE IF EXISTS SBO.`tarjetas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tarjetas` (
+CREATE TABLE SBO.`tarjetas` (
   `id_tarjeta` int(11) NOT NULL AUTO_INCREMENT,
   `saldo` double NOT NULL,
   `estado` varchar(45) NOT NULL DEFAULT 'active',
@@ -37,9 +37,9 @@ CREATE TABLE `tarjetas` (
 -- Dumping data for table `tarjetas`
 --
 
-LOCK TABLES `tarjetas` WRITE;
-/*!40000 ALTER TABLE `tarjetas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tarjetas` ENABLE KEYS */;
+LOCK TABLES SBO.`tarjetas` WRITE;
+/*!40000 ALTER TABLE SBO.`tarjetas` DISABLE KEYS */;
+/*!40000 ALTER TABLE SBO.`tarjetas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
