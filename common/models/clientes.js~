@@ -1,7 +1,7 @@
 'use strict';
 var async = require('async');
 
-module.exports = function(app) {
+module.exports = function(Clientes, app) {
 
 	var _clientes = app.models.clientes;
   	var _tarjetas = app.models.tarjetas;
