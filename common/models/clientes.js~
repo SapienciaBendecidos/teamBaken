@@ -1,19 +1,17 @@
 'use strict';
 var async = require('async');
 
-module.exports = function(Clientes, app) {
-
-	var _clientes = app.models.clientes;
-  	var _tarjetas = app.models.tarjetas;
+module.exports = function(Clientes, Tarjetas) {
 
     Clientes.createClient = function(primerNombre, segundoNombre, primerApellido, segundoApellido, saldo, cb) {
 
-    	var cliente = createUser(primerNombre, segundoNombre, primerApellido, segundoNombre);
-    	if (cliente) {
-    		createUser(cliente.idCliente, saldo, function() {
+    	var cliente = createUser(primerNombre, segundoNombre, primerApellido, segundoNombre, function(err) {
+    		if (!err) {
+    			createUser(cliente.idCliente, saldo, function() {
     			return "Bad Request";
     		})
-    	}
+    		}
+    	});
     }
 
     Clientes.remoteMethod('createClient', {
@@ -31,14 +29,14 @@ module.exports = function(Clientes, app) {
 
 	function createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, cb) {
 		if (err) return cb(err);
-      _clientes.create([
+      Clientes.create([
         {primerNombre: primerNombre, segundoNombre: segundoNombre, primerApellido: primerApellido, segundoApellido: segundoApellido},
       ], cb);
 	}
 
 	function createCard(saldo, cb) {
 		if (err) return cb(err);
-	  _tarjetas.create([
+	  Tarjetas.create([
 	    {saldo: saldo, status: "active"}
 	  ], cb);
 	}
