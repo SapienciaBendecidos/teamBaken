@@ -13,22 +13,11 @@
       "./mixins"
     ]
   },
-  "User": {
-    "dataSource": "mysqlDs"
-  },
   "AccessToken": {
     "dataSource": "db",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
-    "public": false
-  },
-  "RoleMapping": {
-    "dataSource": "db",
-    "public": false
-  },
-  "Role": {
     "dataSource": "db",
     "public": false
   },
@@ -43,5 +32,13 @@
     "public": true,
     "$promise": {},
     "$resolved": true
+  },
+  "Roles": {
+    "dataSource": "mysqlDs",
+    "public": false
+  },
+  "Users": {
+    "dataSource": "mysqlDs",
+    "public": true
   }
 }

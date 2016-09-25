@@ -1,0 +1,38 @@
+{
+  "name": "Users",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "secondName": {
+      "type": "string"
+    },
+    "firstSurname": {
+      "type": "string",
+      "required": true
+    },
+    "secondSurname": {
+      "type": "string"
+    },
+    "idRol": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "Roles": {
+      "type": "hasOne",
+      "model": "Roles",
+      "foreignKey": "idRol"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
