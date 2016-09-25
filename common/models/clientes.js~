@@ -1,40 +1,41 @@
 'use strict';
 
+var app = require('../../server/server');
+
 module.exports = function(Clientes, Tarjetas) {
-
-    Clientes.createClient = function(primerNombre, segundoNombre, primerApellido, segundoApellido, saldo, cb) {
-
-    	var cliente = createUser(primerNombre, segundoNombre, primerApellido, segundoNombre, function(err) {
-    		if (!err) {
-    			createUser(cliente.idCliente, saldo, function(err) {
-    				if (err) return err;
-    		})
-    		}
-    	});
-    }
-
-    Clientes.remoteMethod('createClient', {
-	    accepts:[
-  	        {arg: 'primerNombre', type: 'string'},
-	        {arg: 'segundoNombre', type: 'string'},
-	        {arg: 'primerApellido', type: 'string'},
-	        {arg: 'segundoApellido', type: 'string'},
-	        {arg: 'saldo', type: 'number'},
-			],
-	    returns: {arg: 'response', type: 'string'},
-	    http: {path: '/createClient', verb: 'post'}
-        }
-    );
-
-	function createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, cb) {
+    function createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, cb) {
       Clientes.create([
         {primerNombre: primerNombre, segundoNombre: segundoNombre, primerApellido: primerApellido, segundoApellido: segundoApellido},
       ], cb);
-	}
-
-	function createCard(saldo, cb) {
-	  Tarjetas.create([
-	    {saldo: saldo, status: "active"}
+    }
+	function createCard(idCliente, _saldo, cb) {
+	  app.models.Tarjetas.create([
+	    {saldo: _saldo, estado: "active", idCliente: idCliente}
 	  ], cb);
 	}
+    Clientes.createClient = function(primerNombre, segundoNombre, primerApellido, segundoApellido, saldo, cb) {
+	createUser(primerNombre, segundoNombre, primerApellido, segundoNombre, function(err, data) {
+            if (!err) {
+                createCard(data[0].idCliente, saldo, function(error) {
+                    if (error) cb(null, error);
+                    else cb(null, "Created");
+            	})
+            }else{
+                cb(null, "User not created, Error: " + err);
+            }
+        });
+    }
+    Clientes.remoteMethod('createClient', {
+        accepts:[
+            {arg: 'primerNombre', type: 'string'},
+            {arg: 'segundoNombre', type: 'string'},
+            {arg: 'primerApellido', type: 'string'},
+            {arg: 'segundoApellido', type: 'string'},
+            {arg: 'saldo', type: 'number'},
+            ],
+        returns: {arg: 'createClient', type: 'string'},
+        http: {path: '/createClient', verb: 'post'}
+        }
+    );
 };
+
