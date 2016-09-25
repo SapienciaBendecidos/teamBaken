@@ -1,5 +1,4 @@
 'use strict';
-var async = require('async');
 
 module.exports = function(Clientes, Tarjetas) {
 
@@ -7,8 +6,8 @@ module.exports = function(Clientes, Tarjetas) {
 
     	var cliente = createUser(primerNombre, segundoNombre, primerApellido, segundoNombre, function(err) {
     		if (!err) {
-    			createUser(cliente.idCliente, saldo, function() {
-    			return "Bad Request";
+    			createUser(cliente.idCliente, saldo, function(err) {
+    				if (err) return err;
     		})
     		}
     	});

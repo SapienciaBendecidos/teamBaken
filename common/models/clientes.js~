@@ -1,5 +1,4 @@
 'use strict';
-var async = require('async');
 
 module.exports = function(Clientes, Tarjetas) {
 
@@ -7,8 +6,8 @@ module.exports = function(Clientes, Tarjetas) {
 
     	var cliente = createUser(primerNombre, segundoNombre, primerApellido, segundoNombre, function(err) {
     		if (!err) {
-    			createUser(cliente.idCliente, saldo, function() {
-    			return "Bad Request";
+    			createUser(cliente.idCliente, saldo, function(err) {
+    				if (err) return err;
     		})
     		}
     	});
@@ -28,14 +27,12 @@ module.exports = function(Clientes, Tarjetas) {
     );
 
 	function createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, cb) {
-		if (err) return cb(err);
       Clientes.create([
         {primerNombre: primerNombre, segundoNombre: segundoNombre, primerApellido: primerApellido, segundoApellido: segundoApellido},
       ], cb);
 	}
 
 	function createCard(saldo, cb) {
-		if (err) return cb(err);
 	  Tarjetas.create([
 	    {saldo: saldo, status: "active"}
 	  ], cb);
