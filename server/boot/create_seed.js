@@ -3,7 +3,7 @@ module.exports = function(app) {
     if (process.env.seed == 2 )
     {
         app.models.Roles.create([
-            { id: 1, name: 'Admin'},
+            { name: 'Admin'},
             ], function(err, models) {
                
                 if (err) throw err;
@@ -13,9 +13,9 @@ module.exports = function(app) {
         );
 
         app.models.Users.create([
-            { id: 1, firstName: 'Brandon', firstSurname: 'Napkin', idRol: 1, password: "mipassword", email: "nasky@hotmail.com"},
-            { id: 2, firstName: 'Josue', firstSurname: 'Enamorado', idRol: 1, password: "mipassword", email: "joshua@hotmail.com"},
-            { id: 3, firstName: 'Chungo', firstSurname: 'Murillo', idRol: 1, password: "mipassword", email: "nasky@hotmail.com"},
+            { firstName: 'Brandon', firstSurname: 'Napkin', idRol: 1, password: "mipassword", email: "nasky@hotmail.com"},
+            { firstName: 'Josue', firstSurname: 'Enamorado', idRol: 1, password: "mipassword", email: "joshua@hotmail.com"},
+            { firstName: 'Chungo', firstSurname: 'Murillo', idRol: 1, password: "mipassword", email: "nasky@hotmail.com"},
             ], function(err, models) {
                
                 if (err) throw err;
@@ -25,9 +25,9 @@ module.exports = function(app) {
         );
  
         app.models.Clientes.create([
-            { idCliente: 1, primerNombre:"Pedro", primerApellido: "Pablo"},
-            { idCliente: 2, primerNombre:"Estefania", primerApellido: "Martinez"},
-            { idCliente: 3, primerNombre:"Gerardo", primerApellido: "Jose"},
+            { primerNombre:"Pedro", primerApellido: "Pablo"},
+            { primerNombre:"Estefania", primerApellido: "Martinez"},
+            { primerNombre:"Gerardo", primerApellido: "Jose"},
             ], function(err, models) {
  
                 if (err) throw err;
