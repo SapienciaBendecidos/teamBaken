@@ -27,10 +27,10 @@
   },
   "validations": [],
   "relations": {
-    "Roles": {
+    "roles": {
       "type": "hasOne",
       "model": "Roles",
-      "foreignKey": "idRol"
+      "foreignKey": "id"
     }
   },
   "acls": [],
