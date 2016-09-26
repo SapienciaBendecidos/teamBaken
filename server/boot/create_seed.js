@@ -1,6 +1,6 @@
 module.exports = function(app) {
     console.log('seed: ', process.env.seed)
-    if (process.env.seed == 1 )
+    if (process.env.seed == 2 )
     {
         app.models.Roles.create([
             { id: 1, name: 'Admin'},

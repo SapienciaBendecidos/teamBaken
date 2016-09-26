@@ -1,7 +1,7 @@
 
 module.exports = function(app) {
   ///*
-  if(process.env.seed == 0 )
+  if(process.env.seed == 1 )
   {
   app.dataSources.mysqlDs.automigrate('Users', function(err){
     if(err) throw err;
