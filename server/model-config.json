@@ -42,7 +42,7 @@
     "public": false
   },
   "Role": {
-    "dataSource": "mysqlDs",
+    "dataSource": "db",
     "public": true
   }
 }
