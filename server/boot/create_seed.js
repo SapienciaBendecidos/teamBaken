@@ -21,7 +21,7 @@ module.exports = function(app) {
                 if (err) throw err;
                 
                 app.models.Role.create({
-                  name: 'Admin'
+                  name: 'admin'
                 }, function(err, role) {
                   if (err) throw err;
              
@@ -35,7 +35,7 @@ module.exports = function(app) {
                 });
 
                 app.models.Role.create({
-                  name: 'Cajero'
+                  name: 'cajero'
                 }, function(err, role) {
                   if (err) throw err;
              
