@@ -14,7 +14,7 @@ module.exports = function(Clientes, Tarjetas) {
 	  ], cb);
 	}
     Clientes.createClient = function(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, saldo, cb) {
-	createUser(primerNombre, segundoNombre, primerApellido, segundoNombre, telefono, function(err, data) {
+	createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, function(err, data) {
             if (!err) {
                 createCard(data[0].idCliente, saldo, function(error) {
                     if (error) cb(null, error);
