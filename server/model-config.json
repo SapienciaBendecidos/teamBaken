@@ -33,11 +33,15 @@
     "$promise": {},
     "$resolved": true
   },
-  "Roles": {
+  "Users": {
     "dataSource": "mysqlDs",
     "public": true
   },
-  "Users": {
+  "RoleMapping": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Role": {
     "dataSource": "mysqlDs",
     "public": true
   }
