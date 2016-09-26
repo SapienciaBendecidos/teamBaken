@@ -19,20 +19,17 @@
     },
     "secondSurname": {
       "type": "string"
-    },
-    "idRol": {
-      "type": "number",
-      "required": true
     }
   },
   "validations": [],
-  "relations": {
-    "roles": {
-      "type": "hasOne",
-      "model": "Roles",
-      "foreignKey": "id"
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "Admin",
+      "permission": "ALLOW"
     }
-  },
-  "acls": [],
+  ],
   "methods": {}
 }
