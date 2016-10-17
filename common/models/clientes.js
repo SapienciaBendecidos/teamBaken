@@ -3,9 +3,9 @@
 var app = require('../../server/server');
 
 module.exports = function(Clientes, Tarjetas) {
-    function createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, cb) {
+    function createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, cb) {
       Clientes.create([
-        {primerNombre: primerNombre, segundoNombre: segundoNombre, primerApellido: primerApellido, segundoApellido: segundoApellido},
+        {primerNombre: primerNombre, segundoNombre: segundoNombre, primerApellido: primerApellido, segundoApellido: segundoApellido, telefono: telefono},
       ], cb);
     }
 	function createCard(idCliente, _saldo, cb) {
@@ -13,8 +13,8 @@ module.exports = function(Clientes, Tarjetas) {
 	    {saldo: _saldo, estado: "active", idCliente: idCliente}
 	  ], cb);
 	}
-    Clientes.createClient = function(primerNombre, segundoNombre, primerApellido, segundoApellido, saldo, cb) {
-	createUser(primerNombre, segundoNombre, primerApellido, segundoNombre, function(err, data) {
+    Clientes.createClient = function(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, saldo, cb) {
+	createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, function(err, data) {
             if (!err) {
                 createCard(data[0].idCliente, saldo, function(error) {
                     if (error) cb(null, error);
@@ -31,6 +31,7 @@ module.exports = function(Clientes, Tarjetas) {
             {arg: 'segundoNombre', type: 'string'},
             {arg: 'primerApellido', type: 'string'},
             {arg: 'segundoApellido', type: 'string'},
+            {arg: 'telefono', type: 'string'},
             {arg: 'saldo', type: 'number'},
             ],
         returns: {arg: 'createClient', type: 'string'},

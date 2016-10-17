@@ -1,16 +1,10 @@
+var cardsSeed = require('./test2');
+var clientsSeed = require('./test1');
+
 module.exports = function(app) {
     console.log('seed: ', process.env.seed)
     if (process.env.seed == 2 )
     {
-        /*app.models.Roles.create([
-            { name: 'Admin'},
-            ], function(err, models) {
-               
-                if (err) throw err;
- 
-                console.log('Models created: \n', models);
-            }
-        );*/
 
         app.models.Users.create([
             { username: "nasty", firstName: 'Brandon', firstSurname: 'Napkin', password: "mipassword", email: "nasky@hotmail.com"},
@@ -48,12 +42,9 @@ module.exports = function(app) {
                 });
             }
         );
- 
-        app.models.Clientes.create([
-            { primerNombre:"Pedro", primerApellido: "Pablo"},
-            { primerNombre:"Estefania", primerApellido: "Martinez"},
-            { primerNombre:"Gerardo", primerApellido: "Jose"},
-            ], function(err, models) {
+        
+        app.models.Clientes.create(clientsSeed
+            , function(err, models) {
  
                 if (err) throw err;
  
@@ -61,11 +52,8 @@ module.exports = function(app) {
         });
 
  
-        app.models.Tarjetas.create([
-            {estado:"Activo", idCliente: 1, idTarjeta:1, saldo:50},
-            {estado:"Activo", idCliente: 2, idTarjeta:2, saldo:150},
-            {estado:"Activo", idCliente: 3, idTarjeta:3, saldo:250},
-            ], function(err, models) {
+        app.models.Tarjetas.create(cardsSeed
+            , function(err, models) {
        
                 if (err) throw err;
  
