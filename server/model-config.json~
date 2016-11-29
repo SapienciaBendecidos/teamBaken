@@ -13,9 +13,6 @@
       "./mixins"
     ]
   },
-  "User": {
-    "dataSource": "db"
-  },
   "AccessToken": {
     "dataSource": "db",
     "public": false
@@ -43,10 +40,6 @@
     "public": true,
     "$promise": {},
     "$resolved": true
-  },
-  "Roles": {
-    "dataSource": "mysqlDs",
-    "public": false
   },
   "Users": {
     "dataSource": "mysqlDs",
