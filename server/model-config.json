@@ -44,5 +44,9 @@
   "Role": {
     "dataSource": "mysqlDs",
     "public": true
+  },
+  "Rutas": {
+    "dataSource": "mysqlDs",
+    "public": true
   }
 }
