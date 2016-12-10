@@ -14,12 +14,12 @@
     ]
   },
   "AccessToken": {
-    "dataSource": "db",
-    "public": false
+    "dataSource": "mysqlDs",
+    "public": true
   },
   "ACL": {
-    "dataSource": "db",
-    "public": false
+    "dataSource": "mysqlDs",
+    "public": true
   },
   "Clientes": {
     "dataSource": "mysqlDs",
@@ -38,11 +38,11 @@
     "public": true
   },
   "RoleMapping": {
-    "dataSource": "db",
-    "public": false
+    "dataSource": "mysqlDs",
+    "public": true
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "mysqlDs",
     "public": true
   }
 }
