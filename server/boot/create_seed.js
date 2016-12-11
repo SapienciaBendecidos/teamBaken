@@ -1,5 +1,6 @@
 var cardsSeed = require('./test2');
-var clientsSeed = require('./test1');
+var clientsSeed = require('./client_seed');
+var rutasSeed = require('./rutas_seed');
 
 module.exports = function(app) {
     console.log('seed: ', process.env.seed)
@@ -53,6 +54,14 @@ module.exports = function(app) {
 
  
         app.models.Tarjetas.create(cardsSeed
+            , function(err, models) {
+       
+                if (err) throw err;
+ 
+                console.log('Models created: \n', models);
+        });
+
+        app.models.Rutas.create(rutasSeed
             , function(err, models) {
        
                 if (err) throw err;
