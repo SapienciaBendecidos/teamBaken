@@ -119,3 +119,182 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2016-09-26  1:06:55
+
+
+DROP TABLE IF EXISTS `AccessToken`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `AccessToken` (
+  `id` varchar(255) NOT NULL,
+  `ttl` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `userId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `AccessToken`
+--
+
+LOCK TABLES `AccessToken` WRITE;
+/*!40000 ALTER TABLE `AccessToken` DISABLE KEYS */;
+INSERT INTO `AccessToken` VALUES ('B3LGtkOa39yu0bsD6DaRqvqlzuo7GCbLjKlsiLdVAw229jcTDPK4MUd2H0vFwbRj',1209600,'2016-12-10 18:45:00',1),('US32GZmmxZB5S2OYCPBvkVrVRldBaNamZgvlPAIbFkHkvyq51G6zx6NgGy5ZnU1P',1209600,'2016-11-29 16:27:55',1),('WOZbdCSDhBz0UvkVmreucNOq5HsjGRA3027uCKI7jrU5GQ48TeC0Ht1TjnZg2UFh',1209600,'2016-12-10 18:51:16',3);
+/*!40000 ALTER TABLE `AccessToken` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-12-16 17:16:50
+
+
+
+
+DROP TABLE IF EXISTS `ACL`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ACL` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `model` varchar(512) DEFAULT NULL,
+  `property` varchar(512) DEFAULT NULL,
+  `accessType` varchar(512) DEFAULT NULL,
+  `permission` varchar(512) DEFAULT NULL,
+  `principalType` varchar(512) DEFAULT NULL,
+  `principalId` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ACL`
+--
+
+LOCK TABLES `ACL` WRITE;
+/*!40000 ALTER TABLE `ACL` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ACL` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-12-16 17:16:50
+
+
+
+DROP TABLE IF EXISTS `Role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(512) NOT NULL,
+  `description` varchar(512) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Role`
+--
+
+LOCK TABLES `Role` WRITE;
+/*!40000 ALTER TABLE `Role` DISABLE KEYS */;
+INSERT INTO `Role` VALUES (1,'Cajero',NULL,'2016-11-29 16:26:52','2016-11-29 16:26:52'),(2,'Admin',NULL,'2016-11-29 16:26:52','2016-11-29 16:26:52');
+/*!40000 ALTER TABLE `Role` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-12-16 17:16:50
+
+
+
+
+DROP TABLE IF EXISTS `RoleMapping`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `RoleMapping` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `principalType` varchar(512) DEFAULT NULL,
+  `principalId` varchar(512) DEFAULT NULL,
+  `roleId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `RoleMapping`
+--
+
+LOCK TABLES `RoleMapping` WRITE;
+/*!40000 ALTER TABLE `RoleMapping` DISABLE KEYS */;
+INSERT INTO `RoleMapping` VALUES (1,'USER','3',1),(2,'USER','1',2);
+/*!40000 ALTER TABLE `RoleMapping` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-12-16 17:16:50
+
+
+
+
+
+DROP TABLE IF EXISTS `Rutas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Rutas` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  `descripcion` varchar(1024) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Rutas`
+--
+
+LOCK TABLES `Rutas` WRITE;
+/*!40000 ALTER TABLE `Rutas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Rutas` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-12-16 17:16:50
