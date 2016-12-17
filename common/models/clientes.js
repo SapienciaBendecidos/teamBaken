@@ -25,8 +25,8 @@ module.exports = function(Clientes, Tarjetas) {
         })
     }
 
-    Clientes.getWithSaldo = function(cb){
-        let sql_st =  `Select
+    Clientes.getWithSaldo = function(filter, skip, limit, cb){
+        let base_sql_st =  `Select
                             c.*, s.total
                         from clientes c
                         inner join (Select sum(t.saldo) as total, t.id_cliente
@@ -34,8 +34,44 @@ module.exports = function(Clientes, Tarjetas) {
                             group by t.id_cliente) s
                             
                             on s.id_cliente = c.id_cliente;
-    `;
-        app.datasources.mysqlDs.connector.execute(sql_st, null, function(err, data){
+        `;
+
+        let filter_sql_st = `
+            Select
+                c.*, s.total
+            from clientes c
+            inner join (Select sum(t.saldo) as total, t.id_cliente
+                from tarjetas t
+                group by t.id_cliente) s
+                
+                on s.id_cliente = c.id_cliente
+                
+                where c.primer_nombre like ?, c.segundo_nombre like ?, c.primer_apellido like ?, c.segundo_apellido like ?
+                and c.telefono like ?
+                ;
+        `;
+
+        let pag_sql_st = `
+            Select
+                c.*, s.total
+            from clientes c
+            inner join (Select sum(t.saldo) as total, t.id_cliente
+                from tarjetas t
+                group by t.id_cliente) s
+                
+                on s.id_cliente = c.id_cliente
+                limit ?,?
+                ;
+        `;
+
+        let sql_st = base_sql_st;
+        let params = null;
+        if(skip != null && limit != null){
+            console.log();
+            sql_st = pag_sql_st;
+            params = [skip, limit];
+        }
+        app.datasources.mysqlDs.connector.execute(sql_st, params, function(err, data){
             if(err) cb(err, null);
             else{
                 //console.log(data);
@@ -45,6 +81,11 @@ module.exports = function(Clientes, Tarjetas) {
     }
 
     Clientes.remoteMethod('getWithSaldo', {
+        accepts:[
+            {arg: 'filter', type: 'Object', required: false},
+            {arg: 'skip', type: 'number', required: false},
+            {arg: 'limit', type: 'number', required: false}
+            ],
         returns: {arg: 'getWithSaldo', type: 'Object'},
         http: {path: '/getWithSaldo', verb: 'get'}
         }
