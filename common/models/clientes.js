@@ -81,13 +81,8 @@ module.exports = function(Clientes, Tarjetas) {
                 
                 on s.id_cliente = c.id_cliente
                 
-<<<<<<< HEAD
                 where c.primer_nombre like ? and c.segundo_nombre like ? and c.primer_apellido like ? and c.segundo_apellido like ?
                 and c.telefono like ?
-=======
-                where c.primer_nombre REGEXP ? or c.segundo_nombre REGEXP ? or c.primer_apellido REGEXP ? or c.segundo_apellido REGEXP ?
-                or c.telefono REGEXP ?
->>>>>>> de0f6432e3c2f1a858529a9bc6930e0c9ecfbd5b
                 ;
         `;
 
@@ -114,13 +109,8 @@ module.exports = function(Clientes, Tarjetas) {
                 
                 on s.id_cliente = c.id_cliente
                 
-<<<<<<< HEAD
                 where c.primer_nombre like ? and c.segundo_nombre like ? and c.primer_apellido like ? and c.segundo_apellido like ?
                 and c.telefono like ?
-=======
-                where c.primer_nombre REGEXP ? or c.segundo_nombre REGEXP ? or c.primer_apellido REGEXP ? or c.segundo_apellido REGEXP ?
-                or c.telefono REGEXP ?
->>>>>>> de0f6432e3c2f1a858529a9bc6930e0c9ecfbd5b
                 limit ?,?
                 ;
         `;
