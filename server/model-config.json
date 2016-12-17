@@ -50,5 +50,13 @@
     "public": true,
     "$promise": {},
     "$resolved": true
+  },
+  "Transacciones": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "Viajes": {
+    "dataSource": "mysqlDs",
+    "public": true
   }
 }

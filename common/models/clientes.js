@@ -3,6 +3,41 @@
 var app = require('../../server/server');
 
 module.exports = function(Clientes, Tarjetas) {
+    function createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, cb) {
+      Clientes.create([
+        {primerNombre: primerNombre, segundoNombre: segundoNombre, primerApellido: primerApellido, segundoApellido: segundoApellido, telefono: telefono},
+      ], cb);
+    }
+	function createCard(idCliente, _saldo, cb) {
+	  app.models.Tarjetas.create([
+	    {saldo: _saldo, estado: "active", idCliente: idCliente}
+	  ], cb);
+	}
+    Clientes.createClient = function(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, saldo, cb) {
+	createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, function(err, data) {
+            if (!err) {
+                createCard(data[0].idCliente, saldo, function(error) {
+                    if (error) cb(null, error);
+                    else cb(null, "Created");
+            	})
+            }else{
+                cb(null, "User not created, Error: " + err);
+            }
+        });
+    }
+    Clientes.remoteMethod('createClient', {
+        accepts:[
+            {arg: 'primerNombre', type: 'string'},
+            {arg: 'segundoNombre', type: 'string'},
+            {arg: 'primerApellido', type: 'string'},
+            {arg: 'segundoApellido', type: 'string'},
+            {arg: 'telefono', type: 'string'},
+            {arg: 'saldo', type: 'number'},
+            ],
+        returns: {arg: 'createClient', type: 'string'},
+        http: {path: '/createClient', verb: 'post'}
+        }
+    );
 
     function getClientWithSaldo(idCliente, cb){
         app.models.Clientes.findOne({where: {idCliente: idCliente}}, function(err, client){
@@ -115,6 +150,5 @@ module.exports = function(Clientes, Tarjetas) {
         http: {path: '/getWithSaldo', verb: 'get'}
         }
     );
-
 };
 
