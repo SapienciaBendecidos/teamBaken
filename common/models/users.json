@@ -1,0 +1,41 @@
+{
+  "name": "Users",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "secondName": {
+      "type": "string"
+    },
+    "firstSurname": {
+      "type": "string",
+      "required": true
+    },
+    "secondSurname": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "cajero",
+      "permission": "DENY"
+    }
+  ],
+  "methods": {}
+}
