@@ -61,12 +61,12 @@ module.exports = function(app) {
                 console.log('Models created: \n', models);
         });
 
-        app.models.Rutas.create(rutasSeed
+        /*app.models.Rutas.create(rutasSeed
             , function(err, models) {
        
                 if (err) throw err;
  
                 console.log('Models created: \n', models);
-        });
+        });*/
     }
 };

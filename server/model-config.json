@@ -18,7 +18,7 @@
     "public": true
   },
   "ACL": {
-    "dataSource": "mysqlDs",
+    "dataSource": "db",
     "public": true
   },
   "Clientes": {
@@ -47,6 +47,8 @@
   },
   "Rutas": {
     "dataSource": "mysqlDs",
-    "public": true
+    "public": true,
+    "$promise": {},
+    "$resolved": true
   }
 }

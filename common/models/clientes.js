@@ -13,6 +13,34 @@ module.exports = function(Clientes, Tarjetas) {
 	    {saldo: _saldo, estado: "active", idCliente: idCliente}
 	  ], cb);
 	}
+    function getClientsWithSaldo(idCliente, cb){
+        app.models.Clientes.findOne({where: {idCliente: idCliente}}, function(err, client){
+            if(err) cb("Client not Found", null);
+            else{
+                app.models.Tarjetas.find({where: {idCliente: idCliente}}, function(err, cards){
+                    if(err) cb(err, null);
+                    else{
+                        console.log(cards);
+                        var saldo = 0;
+                        for (var i = 0; i < cards.length; i++){
+                            console.log(cards[i]);
+                            saldo += cards[i].saldo;
+                        }
+                        client.saldo = saldo;
+                        cb(null, client);
+                    }
+                })
+            }
+        })
+    }
+
+    Clientes.getWithSaldo = function(idCliente, cb){
+        getClientsWithSaldo(idCliente, function(err, ret){
+            if(err) cb(err, null);
+            else cb(null, ret);
+        });
+    }
+
     Clientes.createClient = function(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, saldo, cb) {
 	createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, function(err, data) {
             if (!err) {
@@ -36,6 +64,15 @@ module.exports = function(Clientes, Tarjetas) {
             ],
         returns: {arg: 'createClient', type: 'string'},
         http: {path: '/createClient', verb: 'post'}
+        }
+    );
+
+    Clientes.remoteMethod('getWithSaldo', {
+        accepts:[
+            {arg: 'idCliente', type: 'number', required: true}
+            ],
+        returns: {arg: 'getWithSaldo', type: 'Object'},
+        http: {path: '/:id/WithSaldo', verb: 'get'}
         }
     );
 };
