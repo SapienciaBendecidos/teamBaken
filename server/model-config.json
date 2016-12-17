@@ -18,7 +18,7 @@
     "public": true
   },
   "ACL": {
-    "dataSource": "mysqlDs",
+    "dataSource": "db",
     "public": true
   },
   "Clientes": {
