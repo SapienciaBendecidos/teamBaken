@@ -1,7 +1,3 @@
-Para correr todo, abrir una consola y:
--Para crear las tablas -> "set seed=1"
-	Correr con "node ."
-*Esto borrara los datos de las tablas que ya existan, ya que se sobre-escriben*
--Para popular las tablas (seed) -> "set seed=2"
-	Correr con "node ."
-Si están corriéndolo ya y necesitan pararlo para crear/popular/cualquier otra cosa -> Ctrl+c
+-Entrar a mysql workbench y correr el dll (carpeta "dll" llamado "dll.sql"), esto crea las tablas.
+-Abrir cmd en folder del proyecto. Escribir comando "set seed=2" (en Windows), esto prepara el proyecto para popular las tablas.
+-Escribir comando "node ." para correr el proyecto y popular las tablas.

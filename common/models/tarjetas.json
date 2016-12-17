@@ -82,6 +82,11 @@
       "type": "belongsTo",
       "model": "Clientes",
       "foreignKey": "idCliente"
+    },
+    "transacciones": {
+      "type": "hasMany",
+      "model": "Transacciones",
+      "foreignKey": "idTarjeta"
     }
   },
   "acls": [
