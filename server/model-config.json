@@ -18,7 +18,7 @@
     "public": true
   },
   "ACL": {
-    "dataSource": "mysqlDs",
+    "dataSource": "db",
     "public": true
   },
   "Clientes": {
@@ -46,6 +46,16 @@
     "public": true
   },
   "Rutas": {
+    "dataSource": "mysqlDs",
+    "public": true,
+    "$promise": {},
+    "$resolved": true
+  },
+  "Transacciones": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "Viajes": {
     "dataSource": "mysqlDs",
     "public": true
   }
