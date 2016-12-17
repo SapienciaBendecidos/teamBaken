@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 CREATE DATABASE  IF NOT EXISTS `SBO` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `SBO`;
+=======
+>>>>>>> de0f6432e3c2f1a858529a9bc6930e0c9ecfbd5b
 -- MySQL dump 10.13  Distrib 5.7.13, for linux-glibc2.5 (x86_64)
 --
 -- Host: localhost    Database: SBO

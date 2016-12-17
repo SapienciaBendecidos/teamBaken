@@ -13,7 +13,11 @@
     "idTransaccion": {
       "type": "Number",
       "id": true,
+<<<<<<< HEAD
       "required": false,
+=======
+      "required": true,
+>>>>>>> de0f6432e3c2f1a858529a9bc6930e0c9ecfbd5b
       "length": null,
       "precision": 10,
       "scale": 0,
