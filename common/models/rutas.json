@@ -27,6 +27,7 @@
       "foreignKey": "idRuta"
     }
   },
+  "relations": {},
   "acls": [
     {
       "accessType": "*",
