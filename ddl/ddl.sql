@@ -266,10 +266,10 @@ DROP TABLE IF EXISTS `Rutas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Rutas` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idRuta` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `descripcion` varchar(1024) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`idRuta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
