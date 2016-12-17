@@ -46,7 +46,7 @@ module.exports = function(Clientes, Tarjetas) {
                 
                 on s.id_cliente = c.id_cliente
                 
-                where c.primer_nombre like ?, c.segundo_nombre like ?, c.primer_apellido like ?, c.segundo_apellido like ?
+                where c.primer_nombre like ? and c.segundo_nombre like ? and c.primer_apellido like ? and c.segundo_apellido like ?
                 and c.telefono like ?
                 ;
         `;
@@ -86,13 +86,15 @@ module.exports = function(Clientes, Tarjetas) {
             sql_st = pag_sql_st;
             params = [skip, limit];
             if(filter != null){
-                sl_st = filter_pag_sql_st;
-                params = [filter.or.primerNombre, filter.or.segundoNombre, filter.or.primerApellido, filter.or.segundoApellido, filter.or.telefono, skip, limit];
+                sql_st = filter_pag_sql_st;
+                params = [filter.or[0].primerNombre, filter.or[1].segundoNombre, filter.or[2].primerApellido, filter.or[3].segundoApellido, filter.or[4].telefono, skip, limit];
             }
         }else if(filter != null){
-            sl_st = filter_sql_st;
-            params = [filter.or.primerNombre, filter.or.segundoNombre, filter.or.primerApellido, filter.or.segundoApellido, filter.or.telefono];
+            sql_st = filter_sql_st;
+            params = [filter.or[0].primerNombre, filter.or[1].segundoNombre, filter.or[2].primerApellido, filter.or[3].segundoApellido, filter.or[4].telefono];
         }
+
+        console.log(params);
 
         app.datasources.mysqlDs.connector.execute(sql_st, params, function(err, data){
             if(err) cb(err, null);
