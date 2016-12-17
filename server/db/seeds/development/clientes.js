@@ -1,0 +1,8 @@
+Clientes.seed({
+  "idCliente": 0,
+  "primerNombre": "Nombre",
+  "segundoNombre": "Nombre2",
+  "primerApellido": "Apellido1",
+  "segundoApellido": "Apellido2",
+  "telefono": "99887766"
+});

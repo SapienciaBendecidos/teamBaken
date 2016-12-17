@@ -1,0 +1,51 @@
+{
+  "name": "Rutas",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "string",
+      "required": true
+    },
+    "idRuta": {
+      "type": "number",
+      "id": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "viajes": {
+      "type": "hasMany",
+      "model": "Viajes",
+      "foreignKey": "idRuta"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "Admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "Cajero",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}
