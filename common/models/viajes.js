@@ -13,7 +13,8 @@ module.exports = function(Viajes) {
 				inner join (select COUNT(*) as cantidad, t.id_viaje
 							from SBO.Transacciones t
 				group by t.id_viaje) s
-				on s.id_viaje = v.id_viaje
+				on s.id_viaje = v.id_viaje 
+                ORDER by v.fecha asc
 			    
         `;
 
@@ -28,7 +29,8 @@ module.exports = function(Viajes) {
 				on s.id_viaje = v.id_viaje
 			    
 			    where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ? 
-                or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ?;
+                or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
+                ;
         `;
 
         let pag_sql_st = `
@@ -40,7 +42,8 @@ module.exports = function(Viajes) {
 							from SBO.Transacciones t
 				group by t.id_viaje) s
 				on s.id_viaje = v.id_viaje
-			    limit ?,?
+			    ORDER by v.fecha asc
+                limit ?,? 
                 ;
         `;
 
@@ -55,8 +58,8 @@ module.exports = function(Viajes) {
 					on s.id_viaje = v.id_viaje
 				    
 		    where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ? 
-            or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ?
-		                limit ?,?;
+            or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
+                        limit ?,?;
 		        `;
 
         let sql_st = base_sql_st;
