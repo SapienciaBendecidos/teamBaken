@@ -65,11 +65,13 @@
     "viajes": {
       "type": "belongsTo",
       "model": "Viajes",
-      "foreignKey": "idViaje"},
-  "tarjetas": {
+      "foreignKey": "idViaje"
+    },
+    "tarjetas": {
       "type": "belongsTo",
       "model": "Tarjetas",
-      "foreignKey": "idTarjeta"}
+      "foreignKey": "idTarjeta"
+    }
   },
   "acls": [],
   "methods": {}

@@ -113,12 +113,14 @@
     "transacciones": {
       "type": "hasMany",
       "model": "Transacciones",
-      "foreignKey": "idViaje"},
+      "foreignKey": "idViaje"
+    },
     "rutas": {
       "type": "belongsTo",
       "model": "Rutas",
-      "foreignKey": "idRuta"}
-},
+      "foreignKey": "idRuta"
+    }
+  },
   "acls": [],
   "methods": {}
 }
