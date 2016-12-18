@@ -27,7 +27,8 @@ module.exports = function(Viajes) {
 				group by t.id_viaje) s
 				on s.id_viaje = v.id_viaje
 			    
-			    where (v.fecha between ? and ?) or v.id_ruta REGEXP ? or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ?;
+			    where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ? 
+                or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ?;
         `;
 
         let pag_sql_st = `
@@ -53,7 +54,8 @@ module.exports = function(Viajes) {
 					group by t.id_viaje) s
 					on s.id_viaje = v.id_viaje
 				    
-		    where (v.fecha between ? and ?) or v.id_ruta REGEXP ? or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ?
+		    where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ? 
+            or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ?
 		                limit ?,?;
 		        `;
 
@@ -65,21 +67,21 @@ module.exports = function(Viajes) {
             if(filter != null){
                 sql_st = filter_pag_sql_st;
                 if(filter.and == undefined){
-                    params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].id_ruta, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento, skip, limit];
+                    params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento, filter.or[5].bus_placa, skip, limit];
                 }
                 else{
                     sql_st = sql_st.replace(/ or/g, " and")
-                    params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].id_ruta, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento];
+                    params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento, filter.and[5].bus_placa, skip, limit];
                 }
             }
         }else if(filter != null){
             sql_st = filter_sql_st;
             if(filter.and == undefined){
-                params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].id_ruta, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento];
+                params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento, filter.or[5].bus_placa];
             }
             else{
                 sql_st = sql_st.replace(/ or/g, " and")
-                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].id_ruta, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento];
+                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento, filter.and[5].bus_placa];
             }
         }
 
@@ -133,8 +135,8 @@ module.exports = function(Viajes) {
                 group by t.id_viaje) s
                 on s.id_viaje = v.id_viaje
                 
-                where (v.fecha between ? and ?) or v.id_ruta REGEXP ? 
-                or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ?) tabla;
+                where (v.fecha between ? and ?) or r.nombre REGEXP ? 
+                or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ?) tabla;
         `;
 
         let pag_sql_st = `
@@ -164,8 +166,8 @@ module.exports = function(Viajes) {
                     group by t.id_viaje) s
                     on s.id_viaje = v.id_viaje
                     
-            where (v.fecha between ? and ?) or v.id_ruta REGEXP ? or v.bus_conductor REGEXP ?
-            or v.tipo_movimiento REGEXP ? limit ?,?) tabla;
+            where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ?
+            or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? limit ?,?) tabla;
                 `;
 
         let sql_st = base_sql_st;
@@ -176,21 +178,21 @@ module.exports = function(Viajes) {
             if(filter != null){
                 sql_st = filter_pag_sql_st;
                 if(filter.and == undefined){
-                    params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].id_ruta, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento, skip, limit];
+                    params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento, filter.or[5].bus_placa, skip, limit];
                 }
                 else{
                     sql_st = sql_st.replace(/ or/g, " and")
-                    params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].id_ruta, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento];
+                    params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento, filter.and[5].bus_placa, skip, limit];
                 }
             }
         }else if(filter != null){
             sql_st = filter_sql_st;
             if(filter.and == undefined){
-                params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].id_ruta, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento];
+                params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento, filter.or[5].bus_placa];
             }
             else{
                 sql_st = sql_st.replace(/ or/g, " and")
-                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].id_ruta, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento];
+                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento, filter.and[5].bus_placa];
             }
         }
 
