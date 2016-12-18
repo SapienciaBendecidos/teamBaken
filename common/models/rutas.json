@@ -20,13 +20,6 @@
     }
   },
   "validations": [],
-  "relations": {
-    "viajes": {
-      "type": "hasMany",
-      "model": "Viajes",
-      "foreignKey": "idRuta"
-    }
-  },
   "relations": {},
   "acls": [
     {
