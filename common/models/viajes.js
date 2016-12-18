@@ -27,7 +27,7 @@ module.exports = function(Viajes) {
 				group by t.id_viaje) s
 				on s.id_viaje = v.id_viaje
 			    
-			    where v.fecha REGEXP ? or v.id_ruta REGEXP ? or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ?;
+			    where (v.fecha between ? and ?) or v.id_ruta REGEXP ? or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ?;
         `;
 
         let pag_sql_st = `
@@ -53,7 +53,7 @@ module.exports = function(Viajes) {
 					group by t.id_viaje) s
 					on s.id_viaje = v.id_viaje
 				    
-		    where v.fecha REGEXP ? or v.id_ruta REGEXP ? or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ?
+		    where (v.fecha between ? and ?) or v.id_ruta REGEXP ? or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ?
 		                limit ?,?;
 		        `;
 
@@ -64,14 +64,27 @@ module.exports = function(Viajes) {
             params = [skip, limit];
             if(filter != null){
                 sql_st = filter_pag_sql_st;
-                params = [filter.or[0].fecha, filter.or[1].id_ruta, filter.or[2].bus_conductor, filter.or[3].tipo_movimiento, skip, limit];
+                if(filter.and == undefined){
+                    params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].id_ruta, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento, skip, limit];
+                }
+                else{
+                    sql_st = sql_st.replace(/ or/g, " and")
+                    params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].id_ruta, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento];
+                }
             }
         }else if(filter != null){
             sql_st = filter_sql_st;
-            params = [filter.or[0].fecha, filter.or[1].id_ruta, filter.or[2].bus_conductor, filter.or[3].tipo_movimiento];
+            if(filter.and == undefined){
+                params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].id_ruta, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento];
+            }
+            else{
+                sql_st = sql_st.replace(/ or/g, " and")
+                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].id_ruta, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento];
+            }
         }
 
         console.log(params);
+        console.log(sql_st);
 
         app.datasources.mysqlDs.connector.execute(sql_st, params, function(err, data){
             if(err) cb(err, null);
