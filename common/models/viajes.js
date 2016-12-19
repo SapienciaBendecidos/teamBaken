@@ -251,11 +251,46 @@ module.exports = function(Viajes) {
             {arg: 'fecha', type: 'Date', required: true},
             {arg: 'busPlaca', type: 'String', required: true},
             {arg: 'busConductor', type: 'String', required: false},
-            {arg: 'tipoMovimineto', type: 'String', required: true},
+            {arg: 'tipoMovimiento', type: 'String', required: true},
             {arg: 'transacciones', type: '[number]', required: true},
         ],
         http:{path: '/postVariousTransactions', verb: 'post'},
         returns: {arg: 'Success', type: 'String'}
     });
+
+    /*Viajes.postVariousTransactionsTwo = function(data, cb){
+        app.models.Viajes.create([
+            { busConductor : data.busConductor, busPlaca : data.busPlaca, fecha : data.fecha, idRuta : data.idRuta, tipoMovimiento : data.tipoMovimiento},
+            ], function(err, models) {
+ 
+                if (err) throw err;
+        });
+        let sql_st =  `SELECT v.id_viaje FROM sbo.viajes v ORDER BY id_viaje DESC LIMIT 0, 1;`;
+        let params = null;
+        app.datasources.mysqlDs.connector.execute(sql_st, params, function(err, data2){
+            if(err) cb(err, null);
+            else{
+                for (let tarjeta of data.transacciones) {
+                    app.models.Transacciones.create([
+                    { idTarjeta : tarjeta, idViaje : data2[0].id_viaje},
+                    ], function(err, models) {
+ 
+                       if (err) throw err;
+
+                       console.log('Models created: \n', models);
+                    });
+                }
+            }
+        });
+        cb(null, "Success");
+    }
+
+    Viajes.remoteMethod('postVariousTransactionsTwo', {
+        accepts:[
+            {arg: 'data', type: 'Object', required: true, http: { source: 'body' }},
+        ],
+        http:{path: '/postVariousTransactions', verb: 'post'},
+        returns: {arg: 'Success', type: 'String'}
+    });*/
 
 };
