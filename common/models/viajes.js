@@ -222,30 +222,29 @@ module.exports = function(Viajes) {
         });
 
     Viajes.postVariousTransactions = function(idRuta, fecha, busPlaca, busConductor, tipoMovimiento, transacciones, cb){
-        app.models.Viajes.create([
-            { busConductor : busConductor, busPlaca : busPlaca, fecha : fecha, idRuta : idRuta, tipoMovimiento : tipoMovimiento},
-            ], function(err, models) {
+        app.models.Viajes.create(
+            { busConductor : busConductor, busPlaca : busPlaca, fecha : fecha, idRuta : idRuta, tipoMovimiento : tipoMovimiento}
+            , function(err, models) {
  
                 if (err) throw err;
-        });
-        let sql_st =  `SELECT v.id_viaje FROM sbo.viajes v ORDER BY id_viaje DESC LIMIT 0, 1;`;
-        let params = null;
-        app.datasources.mysqlDs.connector.execute(sql_st, params, function(err, data){
-            if(err) cb(err, null);
-            else{
-                for (let tarjeta of transacciones) {
+                else{
+                    console.log(models.idViaje);
+                    for (let tarjeta of transacciones) {
                     app.models.Transacciones.create([
-                    { idTarjeta : tarjeta, idViaje : data[0].id_viaje},
+                    { idTarjeta : tarjeta, idViaje : models.id_viaje},
                     ], function(err, models) {
  
                        if (err) throw err;
+                       else{
+                        if (tarjeta == transacciones[transacciones.length -1])
+                            cb(null, "Success");
+                       }
 
                        console.log('Models created: \n', models);
                     });
                 }
-            }
+                }
         });
-        cb(null, "Success");
     }
 
     Viajes.remoteMethod('postVariousTransactions', {
