@@ -218,4 +218,44 @@ module.exports = function(Viajes) {
         http: {path: '/getReport/Count', verb: 'get'}
         });
 
+    Viajes.postVariousTransactions = function(idRuta, fecha, busPlaca, busConductor, tipoMovimiento, transacciones, cb){
+        app.models.Viajes.create([
+            { busConductor : busConductor, busPlaca : busPlaca, fecha : fecha, idRuta : idRuta, tipoMovimiento : tipoMovimiento},
+            ], function(err, models) {
+ 
+                if (err) throw err;
+        });
+        let sql_st =  `SELECT v.id_viaje FROM sbo.viajes v ORDER BY id_viaje DESC LIMIT 0, 1;`;
+        let params = null;
+        app.datasources.mysqlDs.connector.execute(sql_st, params, function(err, data){
+            if(err) cb(err, null);
+            else{
+                for (let tarjeta of transacciones) {
+                    app.models.Transacciones.create([
+                    { idTarjeta : tarjeta, idViaje : data[0].id_viaje},
+                    ], function(err, models) {
+ 
+                       if (err) throw err;
+
+                       console.log('Models created: \n', models);
+                    });
+                }
+            }
+        });
+        cb(null, "Success");
+    }
+
+    Viajes.remoteMethod('postVariousTransactions', {
+        accepts:[
+            {arg: 'idRuta', type: 'number', required: true},
+            {arg: 'fecha', type: 'Date', required: true},
+            {arg: 'busPlaca', type: 'String', required: true},
+            {arg: 'busConductor', type: 'String', required: false},
+            {arg: 'tipoMovimineto', type: 'String', required: true},
+            {arg: 'transacciones', type: '[number]', required: true},
+        ],
+        http:{path: '/postVariousTransactions', verb: 'post'},
+        returns: {arg: 'Success', type: 'String'}
+    });
+
 };
