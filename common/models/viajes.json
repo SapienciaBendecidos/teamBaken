@@ -121,6 +121,7 @@
       "foreignKey": "idRuta"
     }
   },
+
   "acls": [
     {
       "accessType": "*",

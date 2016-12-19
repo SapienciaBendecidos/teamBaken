@@ -17,6 +17,10 @@
     "idRuta": {
       "type": "number",
       "id": true
+    },
+    "costo": {
+      "type": "number",
+      "required": true
     }
   },
   "validations": [],
