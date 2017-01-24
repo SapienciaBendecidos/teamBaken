@@ -89,12 +89,13 @@ DROP TABLE IF EXISTS `tarjetas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tarjetas` (
-  `id_tarjeta` int(11) NOT NULL AUTO_INCREMENT,
+  `id_tarjeta` varchar(255) NOT NULL,
   `saldo` int(11) NOT NULL,
   `estado` varchar(45) NOT NULL,
   `id_cliente` int(11) NOT NULL,
-  PRIMARY KEY (`id_tarjeta`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id_tarjeta`),
+  UNIQUE KEY `id_tarjeta_UNIQUE` (`id_tarjeta`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,10 +322,10 @@ DROP TABLE IF EXISTS `Transacciones`;
 CREATE TABLE `Transacciones` (
   `id_transaccion` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_viaje` int(10) unsigned NOT NULL,
-  `id_tarjeta` int(10) NOT NULL,
+  `id_tarjeta` varchar(255) NOT NULL,
   PRIMARY KEY (`id_transaccion`),
-  KEY `fk_Transacciones_Tarjeta_idx` (`id_tarjeta`),
-  CONSTRAINT `fk_Transacciones_Tarjeta` FOREIGN KEY (`id_tarjeta`) REFERENCES `tarjetas` (`id_tarjeta`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_Transacciones_1_idx` (`id_tarjeta`),
+  CONSTRAINT `fk_Transacciones_1` FOREIGN KEY (`id_tarjeta`) REFERENCES `tarjetas` (`id_tarjeta`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
