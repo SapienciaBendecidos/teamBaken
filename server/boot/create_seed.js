@@ -1,6 +1,8 @@
-var cardsSeed = require('./test2');
+var cardsSeed = require('./tarjetas_seed');
 var clientsSeed = require('./client_seed');
 var rutasSeed = require('./rutas_seed');
+var viajesSeed = require('./viajes_seed');
+var transaccionesSeed = require('./transacciones_seed');
 
 module.exports = function(app) {
     console.log('seed: ', process.env.seed)
@@ -61,12 +63,28 @@ module.exports = function(app) {
                 console.log('Models created: \n', models);
         });
 
-        /*app.models.Rutas.create(rutasSeed
+        app.models.Rutas.create(rutasSeed
             , function(err, models) {
        
                 if (err) throw err;
  
                 console.log('Models created: \n', models);
-        });*/
+        });
+
+        app.models.Viajes.create(viajesSeed
+            , function(err, models) {
+       
+                if (err) throw err;
+ 
+                console.log('Models created: \n', models);
+        });
+
+        app.models.Transacciones.create(transaccionesSeed
+            , function(err, models) {
+       
+                if (err) throw err;
+ 
+                console.log('Models created: \n', models);
+        });
     }
 };
