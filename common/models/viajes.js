@@ -254,7 +254,7 @@ module.exports = function(Viajes) {
             {arg: 'busPlaca', type: 'String', required: true},
             {arg: 'busConductor', type: 'String', required: false},
             {arg: 'tipoMovimiento', type: 'String', required: true},
-            {arg: 'transacciones', type: '[number]', required: true},
+            {arg: 'transacciones', type: '[String]', required: true},
         ],
         http:{path: '/postVariousTransactions', verb: 'post'},
         returns: {arg: 'Success', type: 'String'}
