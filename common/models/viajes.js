@@ -6,61 +6,61 @@ module.exports = function(Viajes) {
 
 	Viajes.getReport = function(filter, skip, limit, cb){
         let base_sql_st =  `
-        	select r.*, v.*, s.cantidad
-			from SBO.Rutas r
-			inner join SBO.Viajes v
-				on v.id_ruta = r.idRuta
-				inner join (select COUNT(*) as cantidad, t.id_viaje
-							from SBO.Transacciones t
-				group by t.id_viaje) s
-				on s.id_viaje = v.id_viaje 
-                ORDER by v.fecha asc
-			    
+        select r.*, v.*, s.cantidad
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje 
+        ORDER by v.fecha asc
+
         `;
 
         let filter_sql_st = `
-            select r.*, v.*, s.cantidad
-			from SBO.Rutas r
-			inner join SBO.Viajes v
-				on v.id_ruta = r.idRuta
-				inner join (select COUNT(*) as cantidad, t.id_viaje
-							from SBO.Transacciones t
-				group by t.id_viaje) s
-				on s.id_viaje = v.id_viaje
-			    
-			    where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ? 
-                or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
-                ;
+        select r.*, v.*, s.cantidad
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje
+
+        where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ? 
+        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
+        ;
         `;
 
         let pag_sql_st = `
-            select r.*, v.*, s.cantidad
-			from SBO.Rutas r
-			inner join SBO.Viajes v
-				on v.id_ruta = r.idRuta
-				inner join (select COUNT(*) as cantidad, t.id_viaje
-							from SBO.Transacciones t
-				group by t.id_viaje) s
-				on s.id_viaje = v.id_viaje
-			    ORDER by v.fecha asc
-                limit ?,? 
-                ;
+        select r.*, v.*, s.cantidad
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje
+        ORDER by v.fecha asc
+        limit ?,? 
+        ;
         `;
 
         let filter_pag_sql_st = `
-            select r.*, v.*, s.cantidad
-				from SBO.Rutas r
-				inner join SBO.Viajes v
-					on v.id_ruta = r.idRuta
-				inner join (select COUNT(*) as cantidad, t.id_viaje
-								from SBO.Transacciones t
-					group by t.id_viaje) s
-					on s.id_viaje = v.id_viaje
-				    
-		    where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ? 
-            or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
-                        limit ?,?;
-		        `;
+        select r.*, v.*, s.cantidad
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje
+
+        where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ? 
+        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
+        limit ?,?;
+        `;
 
         let sql_st = base_sql_st;
         let params = null;
@@ -102,76 +102,76 @@ module.exports = function(Viajes) {
 
     Viajes.remoteMethod('getReport', {
         accepts:[
-            {arg: 'filter', type: 'Object', required: false},
-            {arg: 'skip', type: 'number', required: false},
-            {arg: 'limit', type: 'number', required: false}
-            ],
+        {arg: 'filter', type: 'Object', required: false},
+        {arg: 'skip', type: 'number', required: false},
+        {arg: 'limit', type: 'number', required: false}
+        ],
         returns: {arg: 'getReport', type: 'Object'},
         http: {path: '/getReport', verb: 'get'}
-        }
+    }
     );
 
     Viajes.getReportCount = function(filter, skip, limit, cb){
         let base_sql_st =  `
-            select count(*)
-            from
-            (select r.*, v.*, s.cantidad
-            from SBO.Rutas r
-            inner join SBO.Viajes v
-                on v.id_ruta = r.idRuta
-                inner join (select COUNT(*) as cantidad, t.id_viaje
-                            from SBO.Transacciones t
-                group by t.id_viaje) s
-                on s.id_viaje = v.id_viaje) tabla
-                
+        select count(*)
+        from
+        (select r.*, v.*, s.cantidad
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje) tabla
+
         `;
 
         let filter_sql_st = `
-            select count(*)
-            from
-            (select r.*, v.*, s.cantidad
-            from SBO.Rutas r
-            inner join SBO.Viajes v
-                on v.id_ruta = r.idRuta
-                inner join (select COUNT(*) as cantidad, t.id_viaje
-                            from SBO.Transacciones t
-                group by t.id_viaje) s
-                on s.id_viaje = v.id_viaje
-                
-                where (v.fecha between ? and ?) or r.nombre REGEXP ? 
-                or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ?) tabla;
+        select count(*)
+        from
+        (select r.*, v.*, s.cantidad
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje
+
+        where (v.fecha between ? and ?) or r.nombre REGEXP ? 
+        or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ?) tabla;
         `;
 
         let pag_sql_st = `
-            select count(*)
-            from
-            (select r.*, v.*, s.cantidad
-            from SBO.Rutas r
-            inner join SBO.Viajes v
-                on v.id_ruta = r.idRuta
-                inner join (select COUNT(*) as cantidad, t.id_viaje
-                            from SBO.Transacciones t
-                group by t.id_viaje) s
-                on s.id_viaje = v.id_viaje
-                limit ?,?) tabla
-                ;
+        select count(*)
+        from
+        (select r.*, v.*, s.cantidad
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje
+        limit ?,?) tabla
+        ;
         `;
 
         let filter_pag_sql_st = `
-            select count(*)
-            from
-            (select r.*, v.*, s.cantidad
-                from SBO.Rutas r
-                inner join SBO.Viajes v
-                    on v.id_ruta = r.idRuta
-                inner join (select COUNT(*) as cantidad, t.id_viaje
-                                from SBO.Transacciones t
-                    group by t.id_viaje) s
-                    on s.id_viaje = v.id_viaje
-                    
-            where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ?
-            or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? limit ?,?) tabla;
-                `;
+        select count(*)
+        from
+        (select r.*, v.*, s.cantidad
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje
+
+        where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ?
+        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? limit ?,?) tabla;
+        `;
 
         let sql_st = base_sql_st;
         let params = null;
@@ -213,48 +213,49 @@ module.exports = function(Viajes) {
 
     Viajes.remoteMethod('getReportCount', {
         accepts:[
-            {arg: 'filter', type: 'Object', required: false},
-            {arg: 'skip', type: 'number', required: false},
-            {arg: 'limit', type: 'number', required: false}
-            ],
+        {arg: 'filter', type: 'Object', required: false},
+        {arg: 'skip', type: 'number', required: false},
+        {arg: 'limit', type: 'number', required: false}
+        ],
         returns: {arg: 'getReportCount', type: 'Object'},
         http: {path: '/getReport/Count', verb: 'get'}
-        });
+    });
 
     Viajes.postVariousTransactions = function(idRuta, fecha, busPlaca, busConductor, tipoMovimiento, transacciones, cb){
         app.models.Viajes.create(
             { busConductor : busConductor, busPlaca : busPlaca, fecha : fecha, idRuta : idRuta, tipoMovimiento : tipoMovimiento}
             , function(err, models) {
- 
+
                 if (err) throw err;
                 else{
                     console.log(models.idViaje);
-                    for (let tarjeta of transacciones) {
-                    app.models.Transacciones.create([
-                    { idTarjeta : tarjeta, idViaje : models.idViaje},
-                    ], function(err, models) {
- 
-                       if (err) throw err;
-                       else{
-                        if (tarjeta == transacciones[transacciones.length -1])
-                            cb(null, "Success");
-                       }
+                    for (let x =0; x < transacciones.length; x++) {
+                        let tarjeta = transacciones[x];
+                        app.models.Transacciones.create([
+                            { idTarjeta : tarjeta, idViaje : models.idViaje},
+                            ], function(err, models) {
 
-                       console.log('Models created: \n', models);
-                    });
+                             if (err) throw err;
+                             else{
+                                if (x == transacciones.length)
+                                    cb(null, "Success");
+                            }
+
+                            console.log('Models created: \n', models);
+                        });
+                    }
                 }
-                }
-        });
+            });
     }
 
     Viajes.remoteMethod('postVariousTransactions', {
         accepts:[
-            {arg: 'idRuta', type: 'number', required: true},
-            {arg: 'fecha', type: 'Date', required: true},
-            {arg: 'busPlaca', type: 'String', required: true},
-            {arg: 'busConductor', type: 'String', required: false},
-            {arg: 'tipoMovimiento', type: 'String', required: true},
-            {arg: 'transacciones', type: '[String]', required: true},
+        {arg: 'idRuta', type: 'number', required: true},
+        {arg: 'fecha', type: 'Date', required: true},
+        {arg: 'busPlaca', type: 'String', required: true},
+        {arg: 'busConductor', type: 'String', required: false},
+        {arg: 'tipoMovimiento', type: 'String', required: true},
+        {arg: 'transacciones', type: '[String]', required: true},
         ],
         http:{path: '/postVariousTransactions', verb: 'post'},
         returns: {arg: 'Success', type: 'String'}
