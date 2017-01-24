@@ -231,7 +231,7 @@ module.exports = function(Viajes) {
                     console.log(models.idViaje);
                     for (let tarjeta of transacciones) {
                     app.models.Transacciones.create([
-                    { idTarjeta : tarjeta, idViaje : models.id_viaje},
+                    { idTarjeta : tarjeta, idViaje : models.idViaje},
                     ], function(err, models) {
  
                        if (err) throw err;
