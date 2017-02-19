@@ -1,7 +1,7 @@
 'use strict';
-
+var json2xls = require('json2xls');
 var app = require('../../server/server');
-
+var fs = require('fs');
 module.exports = function(Viajes) {
 
 	Viajes.getReport = function(filter, skip, limit, cb){
@@ -295,5 +295,29 @@ module.exports = function(Viajes) {
         http:{path: '/postVariousTransactions', verb: 'post'},
         returns: {arg: 'Success', type: 'String'}
     });*/
+    Viajes.GenerateExcelReport = function(filter, skip, limit, res, cb){
+
+        Viajes.getReport(filter, skip, limit, function(err, data){
+            if(err)
+                cb(err, null);
+            else{
+
+                var xls = json2xls(data);
+                fs.writeFileSync('./data.xlsx', xls, 'binary');
+                res.download('./data.xlsx');
+            }
+        });
+    }
+    Viajes.remoteMethod('GenerateExcelReport', {
+        accepts:[
+        {arg: 'filter', type: 'Object', required: false},
+        {arg: 'skip', type: 'number', required: false},
+        {arg: 'limit', type: 'number', required: false},
+        {arg: 'res', type:'object', 'http': {source: 'res'}}
+        ],
+        returns: {},
+        http: {path: '/GenerateExcelReport', verb: 'get'}
+    }
+    );
 
 };
