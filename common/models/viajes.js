@@ -28,7 +28,7 @@ module.exports = function(Viajes) {
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
 
-        where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ? 
+        where (v.fecha between ? and ?) or r.nombre REGEXP ?
         or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
         ;
         `;
@@ -57,7 +57,7 @@ module.exports = function(Viajes) {
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
 
-        where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ? 
+        where (v.fecha between ? and ?) or r.nombre REGEXP ?
         or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
         limit ?,?;
         `;
@@ -70,21 +70,21 @@ module.exports = function(Viajes) {
             if(filter != null){
                 sql_st = filter_pag_sql_st;
                 if(filter.and == undefined){
-                    params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento, filter.or[5].bus_placa, skip, limit];
+                    params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].tipo_movimiento, filter.or[4].bus_placa, skip, limit];
                 }
                 else{
                     sql_st = sql_st.replace(/ or/g, " and")
-                    params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento, filter.and[5].bus_placa, skip, limit];
+                    params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre,  filter.and[3].tipo_movimiento, filter.and[4].bus_placa, skip, limit];
                 }
             }
         }else if(filter != null){
             sql_st = filter_sql_st;
             if(filter.and == undefined){
-                params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento, filter.or[5].bus_placa];
+                params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre,  filter.or[3].tipo_movimiento, filter.or[4].bus_placa];
             }
             else{
                 sql_st = sql_st.replace(/ or/g, " and")
-                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento, filter.and[5].bus_placa];
+                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].tipo_movimiento, filter.and[4].bus_placa];
             }
         }
 
@@ -139,7 +139,7 @@ module.exports = function(Viajes) {
         on s.id_viaje = v.id_viaje
 
         where (v.fecha between ? and ?) or r.nombre REGEXP ? 
-        or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ?) tabla;
+        or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ? tabla;
         `;
 
         let pag_sql_st = `
@@ -169,7 +169,7 @@ module.exports = function(Viajes) {
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
 
-        where (v.fecha between ? and ?) or r.nombre REGEXP ? or v.bus_conductor REGEXP ?
+        where (v.fecha between ? and ?) or r.nombre REGEXP ? 
         or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? limit ?,?) tabla;
         `;
 
@@ -181,17 +181,17 @@ module.exports = function(Viajes) {
             if(filter != null){
                 sql_st = filter_pag_sql_st;
                 if(filter.and == undefined){
-                    params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento, filter.or[5].bus_placa, skip, limit];
+                    params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre,  filter.or[3].tipo_movimiento, filter.or[4].bus_placa, skip, limit];
                 }
                 else{
                     sql_st = sql_st.replace(/ or/g, " and")
-                    params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento, filter.and[5].bus_placa, skip, limit];
+                    params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].tipo_movimiento, filter.and[4].bus_placa, skip, limit];
                 }
             }
         }else if(filter != null){
             sql_st = filter_sql_st;
             if(filter.and == undefined){
-                params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].bus_conductor, filter.or[4].tipo_movimiento, filter.or[5].bus_placa];
+                params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].tipo_movimiento, filter.or[4].bus_placa];
             }
             else{
                 sql_st = sql_st.replace(/ or/g, " and")
@@ -221,9 +221,9 @@ module.exports = function(Viajes) {
         http: {path: '/getReport/Count', verb: 'get'}
     });
 
-    Viajes.postVariousTransactions = function(idRuta, fecha, busPlaca, busConductor, tipoMovimiento, transacciones, cb){
+    Viajes.postVariousTransactions = function(idRuta, fecha, busPlaca, tipoMovimiento, transacciones, cb){
         app.models.Viajes.create(
-            { busConductor : busConductor, busPlaca : busPlaca, fecha : fecha, idRuta : idRuta, tipoMovimiento : tipoMovimiento}
+            { busPlaca : busPlaca, fecha : fecha, idRuta : idRuta, tipoMovimiento : tipoMovimiento}
             , function(err, models) {
 
                 if (err) throw err;
@@ -253,7 +253,6 @@ module.exports = function(Viajes) {
         {arg: 'idRuta', type: 'number', required: true},
         {arg: 'fecha', type: 'Date', required: true},
         {arg: 'busPlaca', type: 'String', required: true},
-        {arg: 'busConductor', type: 'String', required: false},
         {arg: 'tipoMovimiento', type: 'String', required: true},
         {arg: 'transacciones', type: '[String]', required: true},
         ],

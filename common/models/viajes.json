@@ -43,22 +43,6 @@
       },
       "_selectable": false
     },
-    "busConductor": {
-      "type": "String",
-      "required": false,
-      "length": 45,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "bus_conductor",
-        "dataType": "varchar",
-        "dataLength": 45,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      },
-      "_selectable": true
-    },
     "idRuta": {
       "type": "Number",
       "required": true,
