@@ -54,32 +54,7 @@ LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `clientes`
---
 
-DROP TABLE IF EXISTS `clientes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `clientes` (
-  `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
-  `primer_nombre` varchar(45) NOT NULL,
-  `segundo_nombre` varchar(45) DEFAULT NULL,
-  `primer_apellido` varchar(45) NOT NULL,
-  `segundo_apellido` varchar(45) DEFAULT NULL,
-  `telefono` varchar(8) DEFAULT NULL,
-  PRIMARY KEY (`id_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `clientes`
---
-
-LOCK TABLES `clientes` WRITE;
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tarjetas`
@@ -348,7 +323,6 @@ DROP TABLE IF EXISTS `Viajes`;
 CREATE TABLE `Viajes` (
   `id_viaje` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `bus_placa` varchar(45) NOT NULL,
-  `bus_conductor` varchar(45) DEFAULT NULL,
   `id_ruta` int(10) unsigned NOT NULL,
   `fecha` datetime NOT NULL,
   `tipo_movimiento` varchar(45) NOT NULL,
@@ -359,13 +333,38 @@ CREATE TABLE `Viajes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Viajes`
+-- Table structure for table `clientes`
 --
 
-LOCK TABLES `Viajes` WRITE;
-/*!40000 ALTER TABLE `Viajes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Viajes` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `clientes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clientes` (
+  `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
+  `nombres` varchar(45) NOT NULL,
+  `telefono` varchar(8) DEFAULT NULL,
+  `identidad` char(13) NOT NULL,
+  `colonia` varchar(45) NOT NULL,
+  `id_servidor` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id_cliente`),
+  KEY `fk_clientes_1_idx` (`id_servidor`),
+  CONSTRAINT `fk_clientes_1` FOREIGN KEY (`id_servidor`) REFERENCES `equipos_servicio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `equipos_servicio`
+--
+
+DROP TABLE IF EXISTS `equipos_servicio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `equipos_servicio` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -376,4 +375,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-17  0:16:22
+-- Dump completed on 2017-02-19 16:15:10

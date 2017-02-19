@@ -15,11 +15,11 @@
   },
   "AccessToken": {
     "dataSource": "mysqlDs",
-    "public": true
+    "public": false
   },
   "ACL": {
     "dataSource": "db",
-    "public": true
+    "public": false
   },
   "Clientes": {
     "dataSource": "mysqlDs",
@@ -39,11 +39,11 @@
   },
   "RoleMapping": {
     "dataSource": "mysqlDs",
-    "public": true
+    "public": false
   },
   "Role": {
     "dataSource": "mysqlDs",
-    "public": true
+    "public": false
   },
   "Rutas": {
     "dataSource": "mysqlDs",
@@ -56,6 +56,10 @@
     "public": true
   },
   "Viajes": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "EquiposServicio": {
     "dataSource": "mysqlDs",
     "public": true
   }

@@ -35,6 +35,12 @@
       "principalType": "ROLE",
       "principalId": "cajero",
       "permission": "DENY"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "create"
     }
   ],
   "methods": {}

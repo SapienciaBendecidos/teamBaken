@@ -27,14 +27,14 @@
       },
       "_selectable": false
     },
-    "primerNombre": {
+    "nombres": {
       "type": "String",
       "required": true,
       "length": 45,
       "precision": null,
       "scale": null,
       "mysql": {
-        "columnName": "primer_nombre",
+        "columnName": "nombres",
         "dataType": "varchar",
         "dataLength": 45,
         "dataPrecision": null,
@@ -42,54 +42,6 @@
         "nullable": "N"
       },
       "_selectable": false
-    },
-    "segundoNombre": {
-      "type": "String",
-      "required": false,
-      "length": 45,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "segundo_nombre",
-        "dataType": "varchar",
-        "dataLength": 45,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      },
-      "_selectable": true
-    },
-    "primerApellido": {
-      "type": "String",
-      "required": true,
-      "length": 45,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "primer_apellido",
-        "dataType": "varchar",
-        "dataLength": 45,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "N"
-      },
-      "_selectable": false
-    },
-    "segundoApellido": {
-      "type": "String",
-      "required": false,
-      "length": 45,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "segundo_apellido",
-        "dataType": "varchar",
-        "dataLength": 45,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      },
-      "_selectable": true
     },
     "telefono": {
       "type": "String",
@@ -106,6 +58,55 @@
         "nullable": "Y"
       },
       "_selectable": true
+    },
+    "id_servidor": {
+      "type": "Number",
+      "id": false,
+      "required": false,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "id_servidor",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      },
+      "_selectable": false
+    },
+    "identidad": {
+      "type": "string",
+      "required": true,
+      "length": 13,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "identidad",
+        "dataType": "char",
+        "dataLength": 13,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "N"
+      },
+      "_selectable": false
+    },
+    "colonia": {
+      "type": "string",
+      "required": true,
+      "length": 45,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "colonia",
+        "dataType": "varchar",
+        "dataLength": 45,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "N"
+      },
+      "_selectable": false
     }
   },
   "validations": [],
@@ -114,6 +115,11 @@
       "type": "hasMany",
       "model": "Tarjetas",
       "foreignKey": "idCliente"
+    },
+    "equiposServicio": {
+      "type": "belongsTo",
+      "model": "EquiposServicio",
+      "foreignKey": "id_servidor"
     }
   },
   "acls": [
