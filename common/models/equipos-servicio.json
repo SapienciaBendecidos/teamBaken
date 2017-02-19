@@ -45,7 +45,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "clientes": {
+      "type": "hasMany",
+      "model": "Clientes",
+      "foreignKey": "id_servidor"
+    }
+  },
   "acls": [],
   "methods": {}
 }

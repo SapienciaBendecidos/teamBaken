@@ -79,7 +79,7 @@
     "identidad": {
       "type": "string",
       "required": true,
-      "length" : 13,
+      "length": 13,
       "precision": null,
       "scale": null,
       "mysql": {
@@ -95,7 +95,7 @@
     "colonia": {
       "type": "string",
       "required": true,
-      "length" : 45,
+      "length": 45,
       "precision": null,
       "scale": null,
       "mysql": {
@@ -115,6 +115,11 @@
       "type": "hasMany",
       "model": "Tarjetas",
       "foreignKey": "idCliente"
+    },
+    "equiposServicio": {
+      "type": "belongsTo",
+      "model": "EquiposServicio",
+      "foreignKey": "id_servidor"
     }
   },
   "acls": [
