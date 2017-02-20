@@ -53,6 +53,12 @@
       "principalType": "ROLE",
       "principalId": "cajero",
       "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "DENY"
     }
   ],
   "methods": {}
