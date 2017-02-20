@@ -2,6 +2,7 @@ var cardsSeed = require('./tarjetas_seed');
 var clientsSeed = require('./client_seed');
 var rutasSeed = require('./rutas_seed');
 var viajesSeed = require('./viajes_seed');
+var equipos_servicios = require('./equipos_servicios_seed');
 var transaccionesSeed = require('./transacciones_seed');
 
 module.exports = function(app) {
@@ -45,6 +46,14 @@ module.exports = function(app) {
                 });
             }
         );
+
+        app.models.EquiposServicio.create(equipos_servicios
+            , function(err, models) {
+       
+                if (err) throw err;
+ 
+                console.log('Models created: \n', models);
+        });
         
         app.models.Clientes.create(clientsSeed
             , function(err, models) {
