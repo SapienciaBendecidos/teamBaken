@@ -44,6 +44,19 @@ module.exports = function(app) {
                     if (err) throw err;
                   });
                 });
+
+                app.models.Role.create({
+                  name: 'movil'
+                }, function(err, role) {
+                  if (err) throw err;
+             
+                  role.principals.create({
+                    principalType: app.models.RoleMapping.USER,
+                    principalId: users[2].id
+                  }, function(err, principal) {
+                    if (err) throw err;
+                  });
+                });
             }
         );
 
