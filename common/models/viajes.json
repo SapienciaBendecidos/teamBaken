@@ -141,6 +141,18 @@
       "principalType": "ROLE",
       "principalId": "cajero",
       "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "ALLOW"
     }
   ],
   "methods": {}
