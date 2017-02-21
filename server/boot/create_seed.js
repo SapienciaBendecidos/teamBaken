@@ -11,9 +11,9 @@ module.exports = function(app) {
     {
 
         app.models.Users.create([
-            { username: "nasty", firstName: 'Brandon', firstSurname: 'Napkin', password: "mipassword", email: "nasky@hotmail.com"},
-            { username: "joshua", firstName: 'Josue', firstSurname: 'Enamorado', password: "mipassword", email: "joshua@hotmail.com"},
-            { username: "chus", firstName: 'Chungo', firstSurname: 'Murillo', password: "mipassword", email: "chungo@hotmail.com"},
+            { username: "nasty", firstName: 'Brandon', firstSurname: 'Napkin', password: "mipassword", email: "nasky@hotmail.com", status: "active"},
+            { username: "joshua", firstName: 'Josue', firstSurname: 'Enamorado', password: "mipassword", email: "joshua@hotmail.com", status: "active"},
+            { username: "chus", firstName: 'Chungo', firstSurname: 'Murillo', password: "mipassword", email: "chungo@hotmail.com", status: "active"},
             ], function(err, users) {
                
                 if (err) throw err;
@@ -40,6 +40,19 @@ module.exports = function(app) {
                   role.principals.create({
                     principalType: app.models.RoleMapping.USER,
                     principalId: users[1].id
+                  }, function(err, principal) {
+                    if (err) throw err;
+                  });
+                });
+
+                app.models.Role.create({
+                  name: 'movil'
+                }, function(err, role) {
+                  if (err) throw err;
+             
+                  role.principals.create({
+                    principalType: app.models.RoleMapping.USER,
+                    principalId: users[2].id
                   }, function(err, principal) {
                     if (err) throw err;
                   });
