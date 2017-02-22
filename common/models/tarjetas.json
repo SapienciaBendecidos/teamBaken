@@ -11,18 +11,18 @@
   },
   "properties": {
     "idTarjeta": {
-      "type": "Number",
+      "type": "String",
       "id": true,
-      "required": false,
-      "length": null,
-      "precision": 10,
-      "scale": 0,
+      "required": true,
+      "length": 45,
+      "precision": null,
+      "scale": null,
       "mysql": {
         "columnName": "id_tarjeta",
-        "dataType": "int",
-        "dataLength": null,
-        "dataPrecision": 10,
-        "dataScale": 0,
+        "dataType": "varchar",
+        "dataLength": 45,
+        "dataPrecision": null,
+        "dataScale": null,
         "nullable": "N"
       },
       "_selectable": false
@@ -106,6 +106,24 @@
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "cajero",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "cajero",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "movil",
       "permission": "ALLOW"
     }
   ],

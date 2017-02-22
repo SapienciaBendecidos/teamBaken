@@ -22,7 +22,14 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "roles": {
+      "type": "hasMany",
+      "model": "Role",
+      "foreignKey": "principalId",
+      "through": "RoleMapping"
+    }
+  },
   "acls": [
     {
       "accessType": "*",
@@ -34,6 +41,30 @@
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "cajero",
+      "permission": "DENY"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "create"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "cajero",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "movil",
       "permission": "DENY"
     }
   ],

@@ -17,16 +17,13 @@
     "idRuta": {
       "type": "number",
       "id": true
+    },
+    "costo": {
+      "type": "number",
+      "required": true
     }
   },
   "validations": [],
-  "relations": {
-    "viajes": {
-      "type": "hasMany",
-      "model": "Viajes",
-      "foreignKey": "idRuta"
-    }
-  },
   "relations": {},
   "acls": [
     {
@@ -46,6 +43,30 @@
       "principalType": "ROLE",
       "principalId": "Cajero",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "cajero",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "DENY"
     }
   ],
   "methods": {}

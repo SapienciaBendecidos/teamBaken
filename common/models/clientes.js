@@ -8,18 +8,18 @@ module.exports = function(Clientes, Tarjetas) {
         {primerNombre: primerNombre, segundoNombre: segundoNombre, primerApellido: primerApellido, segundoApellido: segundoApellido, telefono: telefono},
       ], cb);
     }
-	function createCard(idCliente, _saldo, cb) {
-	  app.models.Tarjetas.create([
-	    {saldo: _saldo, estado: "active", idCliente: idCliente}
-	  ], cb);
-	}
+    function createCard(idCliente, _saldo, cb) {
+      app.models.Tarjetas.create([
+        {saldo: _saldo, estado: "active", idCliente: idCliente}
+      ], cb);
+    }
     Clientes.createClient = function(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, saldo, cb) {
-	createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, function(err, data) {
+    createUser(primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, function(err, data) {
             if (!err) {
                 createCard(data[0].idCliente, saldo, function(error) {
                     if (error) cb(null, error);
                     else cb(null, "Created");
-            	})
+                })
             }else{
                 cb(null, "User not created, Error: " + err);
             }
@@ -61,18 +61,10 @@ module.exports = function(Clientes, Tarjetas) {
     }
 
     Clientes.getWithSaldo = function(filter, skip, limit, cb){
-        let base_sql_st =  `Select
-                            c.*, s.total
-                        from clientes c
-                        inner join (Select sum(t.saldo) as total, t.id_cliente
-                            from tarjetas t
-                            group by t.id_cliente) s
-                            
-                            on s.id_cliente = c.id_cliente;
-        `;
-
-        let filter_sql_st = `
-            Select
+        let or_sql = `
+                        Select * from (
+                
+                Select
                 c.*, s.total
             from clientes c
             inner join (Select sum(t.saldo) as total, t.id_cliente
@@ -81,36 +73,45 @@ module.exports = function(Clientes, Tarjetas) {
                 
                 on s.id_cliente = c.id_cliente
                 
-                where c.primer_nombre like ? and c.segundo_nombre like ? and c.primer_apellido like ? and c.segundo_apellido like ?
-                and c.telefono like ?
+            UNION
+
+            Select
+                cl.*, 0 as total
+                from SBO.clientes cl
+                where not exists (
+                
+                Select
+                    c.*, s.total
+                from clientes c
+                inner join (Select sum(t.saldo) as total, t.id_cliente
+                    from tarjetas t
+                    group by t.id_cliente) s
+                    
+                    on s.id_cliente = c.id_cliente
+                    where c.id_cliente = cl.id_cliente
+                
+                )
+
+            ) tabla
+
+        `;
+        let base_sql_st =  or_sql + ";";
+
+        let filter_sql_st = or_sql + `
+                where tabla.primer_nombre REGEXP ? or tabla.segundo_nombre REGEXP ? or tabla.primer_apellido REGEXP ? or tabla.segundo_apellido REGEXP ?
+                or tabla.telefono REGEXP ?
                 ;
         `;
 
-        let pag_sql_st = `
-            Select
-                c.*, s.total
-            from clientes c
-            inner join (Select sum(t.saldo) as total, t.id_cliente
-                from tarjetas t
-                group by t.id_cliente) s
-                
-                on s.id_cliente = c.id_cliente
+        let pag_sql_st = or_sql + `
+
                 limit ?,?
                 ;
         `;
 
-        let filter_pag_sql_st = `
-            Select
-                c.*, s.total
-            from clientes c
-            inner join (Select sum(t.saldo) as total, t.id_cliente
-                from tarjetas t
-                group by t.id_cliente) s
-                
-                on s.id_cliente = c.id_cliente
-                
-                where c.primer_nombre like ?, c.segundo_nombre like ?, c.primer_apellido like ?, c.segundo_apellido like ?
-                and c.telefono like ?
+        let filter_pag_sql_st = or_sql + `
+                where tabla.primer_nombre REGEXP ? or tabla.segundo_nombre REGEXP ? or tabla.primer_apellido REGEXP ? or tabla.segundo_apellido REGEXP ?
+                or tabla.telefono REGEXP ?
                 limit ?,?
                 ;
         `;

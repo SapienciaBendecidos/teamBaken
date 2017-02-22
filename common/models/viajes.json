@@ -13,7 +13,7 @@
     "idViaje": {
       "type": "Number",
       "id": true,
-      "required": true,
+      "required": false,
       "length": null,
       "precision": 10,
       "scale": 0,
@@ -42,22 +42,6 @@
         "nullable": "N"
       },
       "_selectable": false
-    },
-    "busConductor": {
-      "type": "String",
-      "required": false,
-      "length": 45,
-      "precision": null,
-      "scale": null,
-      "mysql": {
-        "columnName": "bus_conductor",
-        "dataType": "varchar",
-        "dataLength": 45,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "Y"
-      },
-      "_selectable": true
     },
     "idRuta": {
       "type": "Number",
@@ -113,12 +97,63 @@
     "transacciones": {
       "type": "hasMany",
       "model": "Transacciones",
-      "foreignKey": "idViaje"},
+      "foreignKey": "idViaje"
+    },
     "rutas": {
       "type": "belongsTo",
       "model": "Rutas",
-      "foreignKey": "idRuta"}
-},
-  "acls": [],
+      "foreignKey": "idRuta"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "Admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "Cajero",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "cajero",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }
