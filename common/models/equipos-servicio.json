@@ -13,7 +13,7 @@
     "id": {
       "type": "Number",
       "id": true,
-      "required": true,
+      "required": false,
       "length": null,
       "precision": 10,
       "scale": 0,
@@ -55,7 +55,7 @@
          "dataLength": null,
          "dataPrecision": null,
          "dataScale": null,
-         "nullable": "N"
+         "nullable": "Y"
        }
        ,
       "_selectable": false
@@ -72,7 +72,7 @@
          "dataLength": null,
          "dataPrecision": null,
          "dataScale": null,
-         "nullable": "N"
+         "nullable": "Y"
        }
        ,
       "_selectable": false
@@ -93,6 +93,25 @@
         "updatedAt" : "fecha_actualizacion" 
       }
     },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "cajero",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "DENY"
+    }
+  ],
   "methods": {}
 }

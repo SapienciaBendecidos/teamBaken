@@ -10,7 +10,6 @@
       "loopback/common/mixins",
       "loopback/server/mixins",
       "../node_modules/loopback-ds-timestamp-mixin",
-      "../common",
       "../common/mixins",
       "./mixins"
     ]

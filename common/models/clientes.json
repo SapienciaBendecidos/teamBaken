@@ -120,7 +120,7 @@
          "dataLength": null,
          "dataPrecision": null,
          "dataScale": null,
-         "nullable": "N"
+         "nullable": "Y"
        }
        ,
       "_selectable": false
@@ -137,7 +137,7 @@
          "dataLength": null,
          "dataPrecision": null,
          "dataScale": null,
-         "nullable": "N"
+         "nullable": "Y"
        }
        ,
       "_selectable": false
@@ -195,7 +195,7 @@
         "createdAt" : "fecha_creacion",
         "updatedAt" : "fecha_actualizacion" 
       },
-      "UserCreateUpdate":{
+      "Auditory":{
         "UserCreate" : "creado_por",
         "UserUpdate" : "actualizado_por"
       }
@@ -218,6 +218,24 @@
       "principalType": "ROLE",
       "principalId": "cajero",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "cajero",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "DENY"
     }
   ],
   "methods": {}

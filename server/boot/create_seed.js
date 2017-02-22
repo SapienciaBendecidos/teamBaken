@@ -2,6 +2,7 @@ var cardsSeed = require('./tarjetas_seed');
 var clientsSeed = require('./client_seed');
 var rutasSeed = require('./rutas_seed');
 var viajesSeed = require('./viajes_seed');
+var equipos_servicios = require('./equipos_servicios_seed');
 var transaccionesSeed = require('./transacciones_seed');
 
 module.exports = function(app) {
@@ -10,9 +11,9 @@ module.exports = function(app) {
     {
 
         app.models.Users.create([
-            { username: "nasty", firstName: 'Brandon', firstSurname: 'Napkin', password: "mipassword", email: "nasky@hotmail.com"},
-            { username: "joshua", firstName: 'Josue', firstSurname: 'Enamorado', password: "mipassword", email: "joshua@hotmail.com"},
-            { username: "chus", firstName: 'Chungo', firstSurname: 'Murillo', password: "mipassword", email: "chungo@hotmail.com"},
+            { username: "nasty", firstName: 'Brandon', firstSurname: 'Napkin', password: "mipassword", email: "nasky@hotmail.com", status: "active"},
+            { username: "joshua", firstName: 'Josue', firstSurname: 'Enamorado', password: "mipassword", email: "joshua@hotmail.com", status: "active"},
+            { username: "chus", firstName: 'Chungo', firstSurname: 'Murillo', password: "mipassword", email: "chungo@hotmail.com", status: "active"},
             ], function(err, users) {
                
                 if (err) throw err;
@@ -43,8 +44,29 @@ module.exports = function(app) {
                     if (err) throw err;
                   });
                 });
+
+                app.models.Role.create({
+                  name: 'movil'
+                }, function(err, role) {
+                  if (err) throw err;
+             
+                  role.principals.create({
+                    principalType: app.models.RoleMapping.USER,
+                    principalId: users[2].id
+                  }, function(err, principal) {
+                    if (err) throw err;
+                  });
+                });
             }
         );
+
+        app.models.EquiposServicio.create(equipos_servicios
+            , function(err, models) {
+       
+                if (err) throw err;
+ 
+                console.log('Models created: \n', models);
+        });
         
         app.models.Clientes.create(clientsSeed
             , function(err, models) {
