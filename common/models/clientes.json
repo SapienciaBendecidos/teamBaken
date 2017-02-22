@@ -107,6 +107,74 @@
         "nullable": "N"
       },
       "_selectable": false
+    },
+    "fecha_creacion": {
+      "type": "Date",
+       "required": true,
+       "length": null,
+       "precision": null,
+       "scale": null,
+       "mysql": {
+         "columnName": "fecha_creacion",
+         "dataType": "datetime",
+         "dataLength": null,
+         "dataPrecision": null,
+         "dataScale": null,
+         "nullable": "N"
+       }
+       ,
+      "_selectable": false
+    },
+    "fecha_actualizacion": {
+      "type": "Date",
+       "required": true,
+       "length": null,
+       "precision": null,
+       "scale": null,
+       "mysql": {
+         "columnName": "fecha_actualizacion",
+         "dataType": "datetime",
+         "dataLength": null,
+         "dataPrecision": null,
+         "dataScale": null,
+         "nullable": "N"
+       }
+       ,
+      "_selectable": false
+    },
+    "creado_por": {
+      "type": "Number",
+      "id": true,
+      "required": false,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "creado_por",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      },
+      "_selectable": false
+    },
+    "actualizado_por": {
+      "type": "Number",
+      "id": true,
+      "required": false,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "actualizado_por",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      },
+      "_selectable": false
     }
   },
   "validations": [],
@@ -122,6 +190,16 @@
       "foreignKey": "id_servidor"
     }
   },
+  "mixins": {
+      "TimeStamp" : {
+        "createdAt" : "fecha_creacion",
+        "updatedAt" : "fecha_actualizacion" 
+      },
+      "UserCreateUpdate":{
+        "UserCreate" : "creado_por",
+        "UserUpdate" : "actualizado_por"
+      }
+    },
   "acls": [
     {
       "accessType": "*",
