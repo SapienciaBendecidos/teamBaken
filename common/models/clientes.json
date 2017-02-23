@@ -196,6 +196,7 @@
         "updatedAt" : "fecha_actualizacion" 
       }
     },
+    "hidden" : ["fecha_actualizacion", "fecha_creacion", "creado_por", "actualizado_por"],
   "acls": [
     {
       "accessType": "*",
