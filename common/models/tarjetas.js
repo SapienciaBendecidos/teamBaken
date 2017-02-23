@@ -6,7 +6,7 @@ module.exports = function(Tarjetas) {
 
 	Tarjetas.getWithClient =function(cb){
 		let sql_st = `
-			Select c.primer_nombre, c.primer_apellido, t.id_tarjeta, t.saldo, t.estado from
+			Select c.nombres, t.id_tarjeta, t.saldo, t.estado from
 				clientes c
 			inner join tarjetas t
 				on t.id_cliente = c.id_cliente;
