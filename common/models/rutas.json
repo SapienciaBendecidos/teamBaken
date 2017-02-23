@@ -49,6 +49,12 @@
       "principalType": "ROLE",
       "principalId": "movil",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "DENY"
     }
   ],
   "methods": {}

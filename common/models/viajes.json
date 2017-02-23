@@ -129,6 +129,12 @@
       "principalType": "ROLE",
       "principalId": "movil",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "DENY"
     }
   ],
   "methods": {}
