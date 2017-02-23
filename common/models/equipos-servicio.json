@@ -45,7 +45,7 @@
     },
     "fecha_creacion": {
       "type": "Date",
-       "required": true,
+       "required": false,
        "length": null,
        "precision": null,
        "scale": null,
@@ -62,7 +62,7 @@
     },
     "fecha_actualizacion": {
       "type": "Date",
-       "required": true,
+       "required": false,
        "length": null,
        "precision": null,
        "scale": null,
