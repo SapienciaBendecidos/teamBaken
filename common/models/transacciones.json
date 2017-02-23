@@ -9,6 +9,12 @@
     "schema": "SBO",
     "table": "Transacciones"
   },
+  "mixins": {
+    "TimeStamp": {
+      "createdAt": "fecha_creacion",
+      "updatedAt": "fecha_actualizacion"
+    }
+  },
   "properties": {
     "idTransaccion": {
       "type": "Number",
@@ -107,36 +113,12 @@
       "foreignKey": "idTarjeta"
     }
   },
-  "mixins": {
-      "TimeStamp" : {
-        "createdAt" : "fecha_creacion",
-        "updatedAt" : "fecha_actualizacion" 
-      }
-    },
   "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "DENY"
-    },
     {
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "DENY"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "Admin",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "Cajero",
-      "permission": "ALLOW"
     },
     {
       "accessType": "*",
@@ -151,16 +133,16 @@
       "permission": "DENY"
     },
     {
-      "accessType": "READ",
-      "principalType": "ROLE",
-      "principalId": "movil",
-      "permission": "DENY"
-    },
-    {
       "accessType": "WRITE",
       "principalType": "ROLE",
       "principalId": "movil",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "DENY"
     }
   ],
   "methods": {}
