@@ -222,6 +222,7 @@ module.exports = function(Viajes) {
     });
 
     Viajes.postVariousTransactions = function(idRuta, fecha, busPlaca, tipoMovimiento, transacciones, cb){
+        console.log("adding transactions");
         app.models.Viajes.create(
             { busPlaca : busPlaca, fecha : fecha, idRuta : idRuta, tipoMovimiento : tipoMovimiento}
             , function(err, models) {
@@ -258,6 +259,47 @@ module.exports = function(Viajes) {
         {arg: 'transacciones', type: '[String]', required: true},
         ],
         http:{path: '/postVariousTransactions', verb: 'post'},
+        returns: {arg: 'Success', type: 'String'}
+    });
+
+    Viajes.addViajesAndTransactions = function(idRuta, fecha, busPlaca, tipoMovimiento, transacciones, cb){
+        console.log("adding transactions");
+        app.models.Viajes.create(
+            { busPlaca : busPlaca, fecha : fecha, idRuta : idRuta, tipoMovimiento : tipoMovimiento}
+            , function(err, models) {
+
+                if (err) throw err;
+                else{
+                    console.log(models.idViaje);
+                    for (let x =0; x < transacciones.length; x++) {
+                        let tarjeta = transacciones[x];
+                        console.log(tarjeta);
+                        app.models.Transacciones.create([
+                            { idTarjeta : tarjeta, idViaje : models.idViaje},
+                            ], function(err, models) {
+
+                             if (err) throw err;
+                             else{
+                                if (x == transacciones.length -1)
+                                    cb(null, "Success");
+                            }
+
+                            console.log('Models created: \n', models);
+                        });
+                    }
+                }
+            });
+    }
+
+    Viajes.remoteMethod('addViajesAndTransactions', {
+        accepts:[
+        {arg: 'idRuta', type: 'number', required: true},
+        {arg: 'fecha', type: 'Date', required: true},
+        {arg: 'busPlaca', type: 'String', required: true},
+        {arg: 'tipoMovimiento', type: 'String', required: true},
+        {arg: 'transacciones', type: '[String]', required: true},
+        ],
+        http:{path: '/addViajesAndTransactions', verb: 'post'},
         returns: {arg: 'Success', type: 'String'}
     });
 
