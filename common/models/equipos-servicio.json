@@ -125,6 +125,10 @@
       "TimeStamp" : {
         "createdAt" : "fecha_creacion",
         "updatedAt" : "fecha_actualizacion" 
+      },
+      "Auditory" : {
+        "user" : "creado_por",
+        "user" : "actualizado_por" 
       }
     },
   "acls": [
