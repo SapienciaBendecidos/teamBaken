@@ -207,6 +207,8 @@ CREATE TABLE `equipos_servicio` (
   `nombre` varchar(45) NOT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_actualizacion` datetime DEFAULT NULL,
+  `creado_por` int(11) DEFAULT NULL,
+  `actualizado_por` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
