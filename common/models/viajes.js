@@ -6,7 +6,7 @@ module.exports = function(Viajes) {
 
 	Viajes.getReport = function(filter, skip, limit, cb){
         let base_sql_st =  `
-        select r.*, v.*, s.cantidad
+        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -19,7 +19,7 @@ module.exports = function(Viajes) {
         `;
 
         let filter_sql_st = `
-        select r.*, v.*, s.cantidad
+        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -34,7 +34,7 @@ module.exports = function(Viajes) {
         `;
 
         let pag_sql_st = `
-        select r.*, v.*, s.cantidad
+        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -48,7 +48,7 @@ module.exports = function(Viajes) {
         `;
 
         let filter_pag_sql_st = `
-        select r.*, v.*, s.cantidad
+        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -115,7 +115,7 @@ module.exports = function(Viajes) {
         let base_sql_st =  `
         select count(*)
         from
-        (select r.*, v.*, s.cantidad
+        (select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -129,7 +129,7 @@ module.exports = function(Viajes) {
         let filter_sql_st = `
         select count(*)
         from
-        (select r.*, v.*, s.cantidad
+        (select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -145,7 +145,7 @@ module.exports = function(Viajes) {
         let pag_sql_st = `
         select count(*)
         from
-        (select r.*, v.*, s.cantidad
+        (select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -160,7 +160,7 @@ module.exports = function(Viajes) {
         let filter_pag_sql_st = `
         select count(*)
         from
-        (select r.*, v.*, s.cantidad
+        (select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
