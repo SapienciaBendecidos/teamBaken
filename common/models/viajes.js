@@ -231,13 +231,14 @@ module.exports = function(Viajes) {
                     console.log(models.idViaje);
                     for (let x =0; x < transacciones.length; x++) {
                         let tarjeta = transacciones[x];
+                        console.log(tarjeta);
                         app.models.Transacciones.create([
                             { idTarjeta : tarjeta, idViaje : models.idViaje},
                             ], function(err, models) {
 
                              if (err) throw err;
                              else{
-                                if (x == transacciones.length)
+                                if (x == transacciones.length -1)
                                     cb(null, "Success");
                             }
 
