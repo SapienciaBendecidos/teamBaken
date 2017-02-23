@@ -9,12 +9,6 @@
     "schema": "SBO",
     "table": "equipos_servicio"
   },
-  "mixins": {
-    "TimeStamp": {
-      "createdAt": "fecha_creacion",
-      "updatedAt": "fecha_actualizacion"
-    }
-  },
   "properties": {
     "id": {
       "type": "Number",
@@ -117,6 +111,7 @@
       },
       "_selectable": false
     }
+
   },
   "validations": [],
   "relations": {
@@ -126,13 +121,19 @@
       "foreignKey": "id_servidor"
     }
   },
-  "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "DENY"
+  "mixins": {
+      "TimeStamp" : {
+        "createdAt" : "fecha_creacion",
+        "updatedAt" : "fecha_actualizacion" 
+      },
+      "Auditory" : {
+        "user" : "creado_por",
+        "user" : "actualizado_por" 
+      }
     },
+  "hidden" : ["fecha_actualizacion", "fecha_creacion", "creado_por", "actualizado_por"]
+  ,
+  "acls": [
     {
       "accessType": "*",
       "principalType": "ROLE",

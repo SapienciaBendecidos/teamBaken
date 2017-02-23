@@ -1,7 +1,7 @@
 
 module.exports = function(app) {
 
-  function inject(ctx, next) {
+  /*function inject(ctx, next) {
     var options = hasOptions(ctx.method.accepts) && (ctx.args.options || {});
     if(options) {
       options.remoteCtx = ctx;
@@ -35,7 +35,7 @@ module.exports = function(app) {
         return true;
       }
     }
-  }
+  }*/
   ///*
   if(process.env.seed == 1 )
   {
