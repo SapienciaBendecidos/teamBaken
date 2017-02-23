@@ -9,6 +9,12 @@
     "schema": "SBO",
     "table": "Transacciones"
   },
+  "mixins": {
+    "TimeStamp": {
+      "createdAt": "fecha_creacion",
+      "updatedAt": "fecha_actualizacion"
+    }
+  },
   "properties": {
     "idTransaccion": {
       "type": "Number",
@@ -61,36 +67,34 @@
     },
     "fecha_creacion": {
       "type": "Date",
-       "required": true,
-       "length": null,
-       "precision": null,
-       "scale": null,
-       "mysql": {
-         "columnName": "fecha_creacion",
-         "dataType": "datetime",
-         "dataLength": null,
-         "dataPrecision": null,
-         "dataScale": null,
-         "nullable": "Y"
-       }
-       ,
+      "required": true,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "fecha_creacion",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      },
       "_selectable": false
     },
     "fecha_actualizacion": {
       "type": "Date",
-       "required": true,
-       "length": null,
-       "precision": null,
-       "scale": null,
-       "mysql": {
-         "columnName": "fecha_actualizacion",
-         "dataType": "datetime",
-         "dataLength": null,
-         "dataPrecision": null,
-         "dataScale": null,
-         "nullable": "Y"
-       }
-       ,
+      "required": true,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "fecha_actualizacion",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      },
       "_selectable": false
     }
   },
@@ -107,12 +111,6 @@
       "foreignKey": "idTarjeta"
     }
   },
-  "mixins": {
-      "TimeStamp" : {
-        "createdAt" : "fecha_creacion",
-        "updatedAt" : "fecha_actualizacion" 
-      }
-    },
   "acls": [
     {
       "accessType": "*",
