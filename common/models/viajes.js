@@ -4,9 +4,35 @@ var app = require('../../server/server');
 var fs = require('fs');
 module.exports = function(Viajes) {
 
-	Viajes.getReport = function(filter, skip, limit, cb){
+    Viajes.getReport = function(filter, skip, limit, cb){
         let base_sql_st =  `
-        select r.*, v.*, s.cantidad
+        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje     
+        ORDER by v.fecha asc
+        `;
+
+        let filter_sql_st = `
+        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje 
+        where (v.fecha between ? and ?) or r.nombre REGEXP ?
+        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
+        ;
+        `;
+
+        let pag_sql_st = `
+        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -15,47 +41,19 @@ module.exports = function(Viajes) {
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje 
         ORDER by v.fecha asc
-
-        `;
-
-        let filter_sql_st = `
-        select r.*, v.*, s.cantidad
-        from SBO.Rutas r
-        inner join SBO.Viajes v
-        on v.id_ruta = r.idRuta
-        inner join (select COUNT(*) as cantidad, t.id_viaje
-        from SBO.Transacciones t
-        group by t.id_viaje) s
-        on s.id_viaje = v.id_viaje
-
-        where (v.fecha between ? and ?) or r.nombre REGEXP ?
-        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
-        ;
-        `;
-
-        let pag_sql_st = `
-        select r.*, v.*, s.cantidad
-        from SBO.Rutas r
-        inner join SBO.Viajes v
-        on v.id_ruta = r.idRuta
-        inner join (select COUNT(*) as cantidad, t.id_viaje
-        from SBO.Transacciones t
-        group by t.id_viaje) s
-        on s.id_viaje = v.id_viaje
-        ORDER by v.fecha asc
         limit ?,? 
         ;
         `;
 
         let filter_pag_sql_st = `
-        select r.*, v.*, s.cantidad
+        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
         inner join (select COUNT(*) as cantidad, t.id_viaje
         from SBO.Transacciones t
         group by t.id_viaje) s
-        on s.id_viaje = v.id_viaje
+        on s.id_viaje = v.id_viaje 
 
         where (v.fecha between ? and ?) or r.nombre REGEXP ?
         or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
