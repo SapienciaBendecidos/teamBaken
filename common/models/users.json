@@ -22,8 +22,39 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "roles": {
+      "type": "hasMany",
+      "model": "Role",
+      "foreignKey": "principalId",
+      "through": "RoleMapping"
+    }
+  },
   "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "cajero",
+      "permission": "DENY"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "cajero",
+      "permission": "DENY",
+      "property": "create"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "cajero",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "DENY"
+    },
     {
       "accessType": "*",
       "principalType": "ROLE",
@@ -33,8 +64,8 @@
     {
       "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "cajero",
-      "permission": "DENY"
+      "principalId": "admin",
+      "permission": "ALLOW"
     }
   ],
   "methods": {}

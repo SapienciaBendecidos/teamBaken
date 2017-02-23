@@ -17,17 +17,88 @@
     "idRuta": {
       "type": "number",
       "id": true
+    },
+    "costo": {
+      "type": "number",
+      "required": true
+    },
+    "fecha_creacion": {
+      "type": "Date",
+       "required": true,
+       "length": null,
+       "precision": null,
+       "scale": null,
+       "mysql": {
+         "columnName": "fecha_creacion",
+         "dataType": "datetime",
+         "dataLength": null,
+         "dataPrecision": null,
+         "dataScale": null,
+         "nullable": "N"
+       }
+       ,
+      "_selectable": false
+    },
+    "fecha_actualizacion": {
+      "type": "Date",
+       "required": true,
+       "length": null,
+       "precision": null,
+       "scale": null,
+       "mysql": {
+         "columnName": "fecha_actualizacion",
+         "dataType": "datetime",
+         "dataLength": null,
+         "dataPrecision": null,
+         "dataScale": null,
+         "nullable": "N"
+       }
+       ,
+      "_selectable": false
+    },
+    "fecha_creacion": {
+      "type": "Date",
+       "required": false,
+       "length": null,
+       "precision": null,
+       "scale": null,
+       "mysql": {
+         "columnName": "fecha_creacion",
+         "dataType": "datetime",
+         "dataLength": null,
+         "dataPrecision": null,
+         "dataScale": null,
+         "nullable": "Y"
+       }
+       ,
+      "_selectable": false
+    },
+    "fecha_actualizacion": {
+      "type": "Date",
+       "required": false,
+       "length": null,
+       "precision": null,
+       "scale": null,
+       "mysql": {
+         "columnName": "fecha_actualizacion",
+         "dataType": "datetime",
+         "dataLength": null,
+         "dataPrecision": null,
+         "dataScale": null,
+         "nullable": "Y"
+       }
+       ,
+      "_selectable": false
     }
   },
   "validations": [],
-  "relations": {
-    "viajes": {
-      "type": "hasMany",
-      "model": "Viajes",
-      "foreignKey": "idRuta"
-    }
-  },
   "relations": {},
+  "mixins": {
+      "TimeStamp" : {
+        "createdAt" : "fecha_creacion",
+        "updatedAt" : "fecha_actualizacion" 
+      }
+    },
   "acls": [
     {
       "accessType": "*",
@@ -46,6 +117,30 @@
       "principalType": "ROLE",
       "principalId": "Cajero",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "cajero",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "movil",
+      "permission": "DENY"
     }
   ],
   "methods": {}
