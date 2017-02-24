@@ -26,16 +26,25 @@ module.exports = function(Users) {
 		}, function(err, role) {
 			if (err) throw err;
 
-				//console.log(role.principals);
+			console.log(role);
 
-				app.models.RoleMapping.findOne({where: {principalType: "USER", principalId: ctx.instance.id}}, function(err, mapping){
-					if (err) throw err;
+			app.models.RoleMapping.findOne({where: {principalType: "USER", principalId: ctx.instance.id}}, function(err, mapping){
+				if (err) throw err;
+				if(!mapping){
+					role.principals.create({
+						principalType: app.models.RoleMapping.USER,
+						principalId: ctx.instance.id
+					}, function(err, principal) {
+						if(err) throw err;
+					});
+				}else{
 					console.log(ctx.instance, role, mapping);
 					app.dataSources.mysqlDs.connector.execute("update SBO.RoleMapping set roleId = ? where id = ?", [role.id, mapping.id], function(err, doc){
 						if (err) throw err;
 					})
-				})
-			});
+				}
+			})
+		});
 		}
 		return next();
 	});

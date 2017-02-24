@@ -13,7 +13,8 @@
     "TimeStamp": {
       "createdAt": "fecha_creacion",
       "updatedAt": "fecha_actualizacion"
-    }
+    },
+    "Audit" : {}
   },
   "properties": {
     "idViaje": {
@@ -130,8 +131,41 @@
        }
        ,
       "_selectable": false
+    },
+    "creado_por": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "creado_por",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      },
+      "_selectable": false
+    },
+    "actualizado_por": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "actualizado_por",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "Y"
+      },
+      "_selectable": false
     }
   },
+  "hidden" : ["fecha_actualizacion", "fecha_creacion", "creado_por", "actualizado_por"],
   "validations": [],
   "relations": {
     "transacciones": {
