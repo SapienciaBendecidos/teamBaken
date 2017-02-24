@@ -6,15 +6,27 @@ module.exports = function(Viajes) {
 
 	Viajes.getReport = function(filter, skip, limit, cb){
         let base_sql_st =  `
-        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
+        select * from
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
         inner join (select COUNT(*) as cantidad, t.id_viaje
         from SBO.Transacciones t
         group by t.id_viaje) s
-        on s.id_viaje = v.id_viaje 
-        ORDER by v.fecha asc
+        on s.id_viaje = v.id_viaje
+        order by v.fecha asc
+        ) details
+        UNION
+        select null, null, null, null, null, null, null, null, sum(tabla.cantidad), sum(tabla.total) from
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje ) tabla;
 
         `;
 
