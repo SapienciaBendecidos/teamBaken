@@ -13,7 +13,8 @@
     "TimeStamp": {
       "createdAt": "fecha_creacion",
       "updatedAt": "fecha_actualizacion"
-    }
+    },
+    "Auditory" : {}
   },
   "properties": {
     "id": {
@@ -152,5 +153,6 @@
       "permission": "DENY"
     }
   ],
+  "hidden" : ["fecha_actualizacion", "fecha_creacion", "creado_por", "actualizado_por"],
   "methods": {}
 }

@@ -181,6 +181,7 @@
       "_selectable": false
     }
   },
+  "hidden" : ["fecha_actualizacion", "fecha_creacion", "creado_por", "actualizado_por"],
   "validations": [],
   "relations": {
     "tarjetas": {
