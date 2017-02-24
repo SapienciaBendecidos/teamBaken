@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `Users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+    `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(512) NOT NULL,
   `secondName` varchar(512) DEFAULT NULL,
   `firstSurname` varchar(512) NOT NULL,
@@ -41,7 +41,13 @@ CREATE TABLE `Users` (
   `status` varchar(512) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `lastUpdated` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `creado_por` int(11) DEFAULT NULL,
+  `actualizado_por` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_Users_1_idx` (`creado_por`),
+  KEY `fk_Users_2_idx` (`actualizado_por`),
+  CONSTRAINT `fk_Users_1` FOREIGN KEY (`creado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Users_2` FOREIGN KEY (`actualizado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 --
