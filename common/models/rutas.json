@@ -9,7 +9,8 @@
     "TimeStamp": {
       "createdAt": "fecha_creacion",
       "updatedAt": "fecha_actualizacion"
-    }
+    },
+    "Audit" : {}
   },
   "properties": {
     "nombre": {
@@ -98,7 +99,6 @@
     },
     "creado_por": {
       "type": "Number",
-      "id": true,
       "required": false,
       "length": null,
       "precision": 10,
@@ -115,7 +115,6 @@
     },
     "actualizado_por": {
       "type": "Number",
-      "id": true,
       "required": false,
       "length": null,
       "precision": 10,

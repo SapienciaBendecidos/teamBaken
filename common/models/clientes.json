@@ -13,7 +13,8 @@
     "TimeStamp": {
       "createdAt": "fecha_creacion",
       "updatedAt": "fecha_actualizacion"
-    }
+    },
+    "Audit" : {}
   },
   "properties": {
     "idCliente": {
@@ -67,7 +68,6 @@
     },
     "id_servidor": {
       "type": "Number",
-      "id": false,
       "required": false,
       "length": null,
       "precision": 10,
@@ -148,7 +148,6 @@
     },
     "creado_por": {
       "type": "Number",
-      "id": true,
       "required": false,
       "length": null,
       "precision": 10,
@@ -165,7 +164,6 @@
     },
     "actualizado_por": {
       "type": "Number",
-      "id": true,
       "required": false,
       "length": null,
       "precision": 10,
