@@ -54,7 +54,7 @@ module.exports = function(Viajes) {
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
         where (v.fecha between ? and ?) or r.nombre REGEXP ?
-        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? order by v.fecha asc) tabla;
+        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc) tabla;
         `;
 
         let pag_sql_st = `
@@ -109,7 +109,7 @@ module.exports = function(Viajes) {
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
         where (v.fecha between ? and ?) or r.nombre REGEXP ?
-        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? order by v.fecha asc
+        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
         limit ?,? ) tabla;
         `;
 
