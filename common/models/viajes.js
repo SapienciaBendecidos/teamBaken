@@ -193,7 +193,7 @@ module.exports = function(Viajes) {
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
         where (v.fecha between ? and ?) or r.nombre REGEXP ?
-        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
+        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc) tabla
         `;
 
         let pag_sql_st = `
@@ -250,7 +250,7 @@ module.exports = function(Viajes) {
             }
             else{
                 sql_st = sql_st.replace(/ or/g, " and")
-                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento, filter.and[5].bus_placa];
+                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].tipo_movimiento, filter.and[4].bus_placa];
             }
         }
 
