@@ -6,20 +6,33 @@ module.exports = function(Viajes) {
 
 	Viajes.getReport = function(filter, skip, limit, cb){
         let base_sql_st =  `
-        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
+        select * from
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
         inner join (select COUNT(*) as cantidad, t.id_viaje
         from SBO.Transacciones t
         group by t.id_viaje) s
-        on s.id_viaje = v.id_viaje 
-        ORDER by v.fecha asc
-
+        on s.id_viaje = v.id_viaje
+        order by v.fecha asc
+        ) details
+        UNION
+        select null, null, null, null, null, null, null, null, sum(tabla.cantidad), sum(tabla.total) from
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje
+        order by v.fecha asc ) tabla;
         `;
 
         let filter_sql_st = `
-        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
+        select * from
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -27,14 +40,26 @@ module.exports = function(Viajes) {
         from SBO.Transacciones t
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
-
         where (v.fecha between ? and ?) or r.nombre REGEXP ?
         or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
-        ;
+        ) details
+        UNION
+        select null, null, null, null, null, null, null, null, sum(tabla.cantidad), sum(tabla.total) from
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje
+        where (v.fecha between ? and ?) or r.nombre REGEXP ?
+        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc) tabla;
         `;
 
         let pag_sql_st = `
-        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
+        select * from
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -42,13 +67,26 @@ module.exports = function(Viajes) {
         from SBO.Transacciones t
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
-        ORDER by v.fecha asc
-        limit ?,? 
-        ;
+        order by v.fecha asc
+        limit ?,?
+        ) details
+        UNION
+        select null, null, null, null, null, null, null, null, sum(tabla.cantidad), sum(tabla.total) from
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje
+        order by v.fecha asc
+        limit ?,? ) tabla;
         `;
 
         let filter_pag_sql_st = `
-        select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
+        select * from
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -56,35 +94,52 @@ module.exports = function(Viajes) {
         from SBO.Transacciones t
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
-
         where (v.fecha between ? and ?) or r.nombre REGEXP ?
         or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
-        limit ?,?;
+        limit ?,?
+        ) details
+        UNION
+        select null, null, null, null, null, null, null, null, sum(tabla.cantidad), sum(tabla.total) from
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        from SBO.Rutas r
+        inner join SBO.Viajes v
+        on v.id_ruta = r.idRuta
+        inner join (select COUNT(*) as cantidad, t.id_viaje
+        from SBO.Transacciones t
+        group by t.id_viaje) s
+        on s.id_viaje = v.id_viaje
+        where (v.fecha between ? and ?) or r.nombre REGEXP ?
+        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
+        limit ?,? ) tabla;
         `;
 
         let sql_st = base_sql_st;
         let params = null;
         if(skip != null && limit != null){
             sql_st = pag_sql_st;
-            params = [skip, limit];
+            params = [skip, limit, skip, limit];
             if(filter != null){
                 sql_st = filter_pag_sql_st;
                 if(filter.and == undefined){
-                    params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].tipo_movimiento, filter.or[4].bus_placa, skip, limit];
+                    params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].tipo_movimiento, filter.or[4].bus_placa, skip, limit,
+                    filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre, filter.or[3].tipo_movimiento, filter.or[4].bus_placa, skip, limit];
                 }
                 else{
                     sql_st = sql_st.replace(/ or/g, " and")
-                    params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre,  filter.and[3].tipo_movimiento, filter.and[4].bus_placa, skip, limit];
+                    params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre,  filter.and[3].tipo_movimiento, filter.and[4].bus_placa, skip, limit,
+                    filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre,  filter.and[3].tipo_movimiento, filter.and[4].bus_placa, skip, limit];
                 }
             }
         }else if(filter != null){
             sql_st = filter_sql_st;
             if(filter.and == undefined){
-                params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre,  filter.or[3].tipo_movimiento, filter.or[4].bus_placa];
+                params = [filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre,  filter.or[3].tipo_movimiento, filter.or[4].bus_placa,
+                filter.or[0].fecha_inicial, filter.or[1].fecha_limite, filter.or[2].nombre,  filter.or[3].tipo_movimiento, filter.or[4].bus_placa];
             }
             else{
                 sql_st = sql_st.replace(/ or/g, " and")
-                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].tipo_movimiento, filter.and[4].bus_placa];
+                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].tipo_movimiento, filter.and[4].bus_placa,
+                filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].tipo_movimiento, filter.and[4].bus_placa];
             }
         }
 
@@ -115,21 +170,21 @@ module.exports = function(Viajes) {
         let base_sql_st =  `
         select count(*)
         from
-        (select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
         inner join (select COUNT(*) as cantidad, t.id_viaje
         from SBO.Transacciones t
         group by t.id_viaje) s
-        on s.id_viaje = v.id_viaje) tabla
-
+        on s.id_viaje = v.id_viaje
+        order by v.fecha asc) tabla
         `;
 
         let filter_sql_st = `
         select count(*)
         from
-        (select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -137,15 +192,14 @@ module.exports = function(Viajes) {
         from SBO.Transacciones t
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
-
-        where (v.fecha between ? and ?) or r.nombre REGEXP ? 
-        or v.bus_conductor REGEXP ? or v.tipo_movimiento REGEXP ? tabla;
+        where (v.fecha between ? and ?) or r.nombre REGEXP ?
+        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc) tabla
         `;
 
         let pag_sql_st = `
         select count(*)
         from
-        (select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -153,6 +207,7 @@ module.exports = function(Viajes) {
         from SBO.Transacciones t
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
+        order by v.fecha asc
         limit ?,?) tabla
         ;
         `;
@@ -160,7 +215,7 @@ module.exports = function(Viajes) {
         let filter_pag_sql_st = `
         select count(*)
         from
-        (select r.*, v.*, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -168,16 +223,16 @@ module.exports = function(Viajes) {
         from SBO.Transacciones t
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
-
-        where (v.fecha between ? and ?) or r.nombre REGEXP ? 
-        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? limit ?,?) tabla;
+        where (v.fecha between ? and ?) or r.nombre REGEXP ?
+        or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
+        limit ?,?) tabla;
         `;
 
         let sql_st = base_sql_st;
         let params = null;
         if(skip != null && limit != null){
             sql_st = pag_sql_st;
-            params = [skip, limit];
+            params = [skip, limit, skip, limit];
             if(filter != null){
                 sql_st = filter_pag_sql_st;
                 if(filter.and == undefined){
@@ -195,7 +250,7 @@ module.exports = function(Viajes) {
             }
             else{
                 sql_st = sql_st.replace(/ or/g, " and")
-                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].bus_conductor, filter.and[4].tipo_movimiento, filter.and[5].bus_placa];
+                params = [filter.and[0].fecha_inicial, filter.and[1].fecha_limite, filter.and[2].nombre, filter.and[3].tipo_movimiento, filter.and[4].bus_placa];
             }
         }
 
