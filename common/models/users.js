@@ -44,6 +44,8 @@ module.exports = function(Users) {
 				}
 			})
 		});
+		}else{
+			next();
 		}
 	});
 
