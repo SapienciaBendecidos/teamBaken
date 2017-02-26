@@ -22,59 +22,64 @@ module.exports = function(Model) {
 		console.log(idProperty);
 		let stringify = '{"' + idProperty + '":' + ctx.args.data[idProperty] + "}";
 		let obj = JSON.parse(stringify);
-		Model.findOne({where: obj}, function(err, data){
-			if(err) throw err;
-			else if(!data){ 
-				let token = "";
-				if(ctx.req.headers.access_token != undefined){
-					token = ctx.req.headers.access_token;
-				}else if(ctx.req.query.access_token != undefined){
-					token = ctx.req.query.access_token;
-				}else{
-					console.log("Auditory not setted");
-					next();
-				}
-
-				app.models.AccessToken.findById(token, function(err, tok){
-					if(err){
-						console.log("Access token not found");
+		try{
+			Model.findOne({where: obj}, function(err, data){
+				if(err) throw err;
+				else if(!data){ 
+					let token = "";
+					if(ctx.req.headers.authorization != undefined){
+						token = ctx.req.headers.authorization;
+					}else if(ctx.req.query.access_token != undefined){
+						token = ctx.req.query.access_token;
+					}else{
+						console.log("Auditory not setted");
 						next();
 					}
-					console.log("creado por: ", tok.userId);
-					ctx.args.data.creado_por = tok.userId;
-					ctx.args.data.actualizado_por = null;
-					next();
-				})
-			}else{
-				let token = "";
-				if(ctx.req.headers.access_token != undefined){
-					token = ctx.req.headers.access_token;
-				}else if(ctx.req.query.access_token != undefined){
-					token = ctx.req.query.access_token;
-				}else{
-					console.log("Auditory not setted");
-					next();
-				}
 
-				app.models.AccessToken.findById(token, function(err, tok){
-					if(err){
-						console.log("Access token not found");
+					app.models.AccessToken.findById(token, function(err, tok){
+						if(err){
+							console.log("Access token not found");
+							next();
+						}
+						console.log("creado por: ", tok.userId);
+						ctx.args.data.creado_por = tok.userId;
+						ctx.args.data.actualizado_por = null;
+						next();
+					})
+				}else{
+					let token = "";
+					if(ctx.req.headers.authorization != undefined){
+						token = ctx.req.headers.authorization;
+					}else if(ctx.req.query.access_token != undefined){
+						token = ctx.req.query.access_token;
+					}else{
+						console.log("Auditory not setted");
 						next();
 					}
-					console.log("updateOrCreate: ", tok.userId, data.creado_por);
-					ctx.args.data.actualizado_por = tok.userId;
-					ctx.args.data.creado_por = data.creado_por;
-					next();
-				})
-			}
-		});
+
+					app.models.AccessToken.findById(token, function(err, tok){
+						if(err){
+							console.log("Access token not found");
+							next();
+						}
+						console.log("updateOrCreate: ", tok.userId, data.creado_por);
+						ctx.args.data.actualizado_por = tok.userId;
+						ctx.args.data.creado_por = data.creado_por;
+						next();
+					})
+				}
+			});
+		}catch(e){
+			console.log("Auditory not setted");
+			next();
+		}
 	});
 
 	Model.beforeRemote('create', function(ctx, notUsed, next){
 		try{
 			let token = "";
-			if(ctx.req.headers.access_token != undefined){
-				token = ctx.req.headers.access_token;
+			if(ctx.req.headers.authorization != undefined){
+				token = ctx.req.headers.authorization;
 			}else if(ctx.req.query.access_token != undefined){
 				token = ctx.req.query.access_token;
 			}else{
@@ -101,7 +106,7 @@ module.exports = function(Model) {
 		try{
 			let token = "";
 			if(ctx.req.headers.authorization != undefined){
-				token = ctx.req.headers.access_token;
+				token = ctx.req.headers.authorization;
 			}else if(ctx.req.query.access_token != undefined){
 				token = ctx.req.query.access_token;
 			}else{

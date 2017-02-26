@@ -5,25 +5,22 @@ module.exports = function(Users) {
 	Users.observe('after save', function(ctx, next){
 		if(ctx.isNewInstance && ctx.instance.type !== undefined){
 			console.log("after create");
-			app.models.Role.findOne({where:{
-				name: ctx.instance.type
-			}
-		}, function(err, role) {
-			if (err) throw err;
+			app.models.Role.findOne({where:{name: ctx.instance.type}}, function(err, role) {
+				if (err) throw err;
 
-			role.principals.create({
-				principalType: app.models.RoleMapping.USER,
-				principalId: ctx.instance.id
-			}, function(err, principal) {
-				if(err) throw err;
+				role.principals.create({
+					principalType: app.models.RoleMapping.USER,
+					principalId: ctx.instance.id
+				}, function(err, principal) {
+					if(err) throw err;
+					else{
+						next();
+					}
+				});
 			});
-		});
 		}else if(ctx.instance.type !== undefined){
 			console.log("after update");
-			app.models.Role.findOne({ where: {
-				name: ctx.instance.type
-			}
-		}, function(err, role) {
+			app.models.Role.findOne({ where: {name: ctx.instance.type}}, function(err, role) {
 			if (err) throw err;
 
 			console.log(role);
@@ -36,17 +33,18 @@ module.exports = function(Users) {
 						principalId: ctx.instance.id
 					}, function(err, principal) {
 						if(err) throw err;
+						else next();
 					});
 				}else{
 					console.log(ctx.instance, role, mapping);
 					app.dataSources.mysqlDs.connector.execute("update SBO.RoleMapping set roleId = ? where id = ?", [role.id, mapping.id], function(err, doc){
 						if (err) throw err;
+						else next();
 					})
 				}
 			})
 		});
 		}
-		return next();
 	});
 
 	Users.beforeRemote( "login", function( ctx, _modelInstance_, next) {
