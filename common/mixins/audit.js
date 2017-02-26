@@ -100,7 +100,7 @@ module.exports = function(Model) {
 	Model.beforeRemote('prototype.updateAttributes', function(ctx, notUsed, next){
 		try{
 			let token = "";
-			if(ctx.req.headers.access_token != undefined){
+			if(ctx.req.headers.authorization != undefined){
 				token = ctx.req.headers.access_token;
 			}else if(ctx.req.query.access_token != undefined){
 				token = ctx.req.query.access_token;
