@@ -27,7 +27,7 @@ module.exports = function(Users) {
 
 			app.models.RoleMapping.findOne({where: {principalType: "USER", principalId: ctx.instance.id}}, function(err, mapping){
 				if (err) throw err;
-				if(!mapping){
+				else if(!mapping){
 					role.principals.create({
 						principalType: app.models.RoleMapping.USER,
 						principalId: ctx.instance.id
