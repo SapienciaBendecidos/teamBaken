@@ -109,15 +109,19 @@ module.exports = function(Model) {
 				next();
 			}
 
-			app.models.AccessToken.findById(token, function(err, tok){
-				if(err){
-					console.log("Access token not found");
-					next();
-				}
-				console.log("actualizado por setted: ", tok.userId);
-				ctx.args.data.actualizado_por = tok.userId;
-				next();
-			})
+			if(token != ""){
+
+				app.models.AccessToken.findById(token, function(err, tok){
+					if(err){
+						console.log("Access token not found");
+						next();
+					}else{
+						console.log("actualizado por setted: ", tok.userId);
+						ctx.args.data.actualizado_por = tok.userId;
+						next();
+					}
+				})
+			}
 
 		}catch(e){
 			console.log("error while setting auditory data");
