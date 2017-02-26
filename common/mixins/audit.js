@@ -4,10 +4,6 @@ var app = require('../../server/server');
 
 module.exports = function(Model) {
 
-	Model.setCreatedBy = function(args, token, cb){
-		args.creado_por = 1;
-	};
-
 	Model.beforeRemote("replaceOrCreate", function(ctx, notUsed, next){
 		console.log("replace or create");
 		let properties = Model.definition.properties;
@@ -76,6 +72,7 @@ module.exports = function(Model) {
 	});
 
 	Model.beforeRemote('create', function(ctx, notUsed, next){
+		console.log("before create");
 		try{
 			let token = "";
 			if(ctx.req.headers.authorization != undefined){
@@ -99,6 +96,7 @@ module.exports = function(Model) {
 
 		}catch(e){
 			console.log("error while setting auditory data");
+			next();
 		}
 	});
 

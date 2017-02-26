@@ -10,56 +10,6 @@ module.exports = function(app) {
     if (process.env.seed == 2 )
     {
 
-        app.models.Users.create([
-            { username: "nasty", firstName: 'Brandon', firstSurname: 'Napkin', password: "mipassword", email: "nasky@hotmail.com", status: "active"},
-            { username: "joshua", firstName: 'Josue', firstSurname: 'Enamorado', password: "mipassword", email: "joshua@hotmail.com", status: "active"},
-            { username: "chus", firstName: 'Chungo', firstSurname: 'Murillo', password: "mipassword", email: "chungo@hotmail.com", status: "active"},
-            ], function(err, users) {
-               
-                if (err) throw err;
-                
-                app.models.Role.create({
-                  name: 'admin'
-                }, function(err, role) {
-                  if (err) throw err;
-             
-                  role.principals.create({
-                    principalType: app.models.RoleMapping.USER,
-                    principalId: users[0].id
-                  }, function(err, principal) {
-                    if(err) throw err;
-                    else console.log("Admin creado: " + users[0].id);
-                  });
-                });
-
-                app.models.Role.create({
-                  name: 'cajero'
-                }, function(err, role) {
-                  if (err) throw err;
-             
-                  role.principals.create({
-                    principalType: app.models.RoleMapping.USER,
-                    principalId: users[1].id
-                  }, function(err, principal) {
-                    if (err) throw err;
-                  });
-                });
-
-                app.models.Role.create({
-                  name: 'movil'
-                }, function(err, role) {
-                  if (err) throw err;
-             
-                  role.principals.create({
-                    principalType: app.models.RoleMapping.USER,
-                    principalId: users[2].id
-                  }, function(err, principal) {
-                    if (err) throw err;
-                  });
-                });
-            }
-        );
-
         app.models.EquiposServicio.create(equipos_servicios
             , function(err, models) {
        
@@ -107,6 +57,41 @@ module.exports = function(app) {
                 if (err) throw err;
  
                 console.log('Models created: \n', models);
-        });
-    }
-};
+            });
+
+        app.models.Users.create([{ username: "nasty", firstName: 'Brandon', firstSurname: 'Napkin', password: "mipassword", email: "nasky@hotmail.com", status: "active"},{ username: "joshua", firstName: 'Josue', firstSurname: 'Enamorado', password: "mipassword", email: "joshua@hotmail.com", status: "active"},{ username: "chus", firstName: 'Chungo', firstSurname: 'Murillo', password: "mipassword", email: "chungo@hotmail.com", status: "active"}], function(err, users) {
+            if (err) throw err;
+            else if(!err && users){
+                console.log(users);
+                app.models.Role.create({name: 'admin'}, function(err, role) {
+                  if (err) throw err;
+                  else{
+                    role.principals.create({principalType: app.models.RoleMapping.USER, principalId: users[0].id}, function(err, principal) {
+                        if(err) throw err;
+                        else console.log("Admin creado: " + users[0].id);
+                    });
+                }
+            });
+
+                app.models.Role.create({name: 'cajero'}, function(err, role) {
+                  if (err) throw err;
+                  else{
+                      role.principals.create({principalType: app.models.RoleMapping.USER,principalId: users[1].id}, function(err, principal) {
+                        if (err) throw err;
+                    });
+                  }
+              });
+
+                app.models.Role.create({name: 'movil'}, function(err, role) {
+                  if (err) throw err;
+                  else{
+                      role.principals.create({principalType: app.models.RoleMapping.USER,principalId: users[2].id}, function(err, principal) {
+                        if (err) throw err;
+                    });
+                  }
+              });
+            }
+        }
+        );
+        }
+    };

@@ -10,8 +10,7 @@
     "TimeStamp": {
       "createdAt": "created",
       "updatedAt": "lastUpdated"
-    },
-    "Audit" : {}
+    }
   },
   "properties": {
     "firstName": {
@@ -61,6 +60,7 @@
       "_selectable": false
     }
   },
+  "hidden" : ["creado_por", "actualizado_por"],
   "validations": [],
   "relations": {
     "roles": {
