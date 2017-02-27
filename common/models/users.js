@@ -2,6 +2,17 @@
 var app = require('../../server/server');
 
 module.exports = function(Users) {
+	Users.afterRemote('login', function(ctx, output, next){
+		Users.findById(output.userId, {include: 'roles'})
+		.then(user => {
+			console.log(user.roles());
+			output.rol = user.roles()[0].name;
+			output.name = user.firstName + " " + user.firstSurname; 
+			next();
+		});
+	});
+
+
 	Users.observe('after save', function(ctx, next){
 		console.log("{"+ctx.instance.type+"}", ctx.instance.type == "admin");
 		if(ctx.isNewInstance && ctx.instance.type !== undefined){
