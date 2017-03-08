@@ -7,7 +7,7 @@ module.exports = function(Viajes) {
 	Viajes.getReport = function(filter, skip, limit, cb){
         let base_sql_st =  `
         select * from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -19,7 +19,7 @@ module.exports = function(Viajes) {
         ) details
         UNION
         select null, null, null, null, null, null, null, null, sum(tabla.cantidad), sum(tabla.total) from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -32,7 +32,7 @@ module.exports = function(Viajes) {
 
         let filter_sql_st = `
         select * from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -45,7 +45,7 @@ module.exports = function(Viajes) {
         ) details
         UNION
         select null, null, null, null, null, null, null, null, sum(tabla.cantidad), sum(tabla.total) from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -59,7 +59,7 @@ module.exports = function(Viajes) {
 
         let pag_sql_st = `
         select * from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -72,7 +72,7 @@ module.exports = function(Viajes) {
         ) details
         UNION
         select null, null, null, null, null, null, null, null, sum(tabla.cantidad), sum(tabla.total) from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -86,7 +86,7 @@ module.exports = function(Viajes) {
 
         let filter_pag_sql_st = `
         select * from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -100,7 +100,7 @@ module.exports = function(Viajes) {
         ) details
         UNION
         select null, null, null, null, null, null, null, null, sum(tabla.cantidad), sum(tabla.total) from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -170,7 +170,7 @@ module.exports = function(Viajes) {
         let base_sql_st =  `
         select count(*)
         from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -184,7 +184,7 @@ module.exports = function(Viajes) {
         let filter_sql_st = `
         select count(*)
         from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -199,7 +199,7 @@ module.exports = function(Viajes) {
         let pag_sql_st = `
         select count(*)
         from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -215,7 +215,7 @@ module.exports = function(Viajes) {
         let filter_pag_sql_st = `
         select count(*)
         from
-        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * r.costo as total
+        (select r.idRuta, r.nombre, r.descripcion, r.costo, v.id_viaje, v.bus_placa, v.fecha, v.tipo_movimiento, s.cantidad, s.cantidad * v.precio as total
         from SBO.Rutas r
         inner join SBO.Viajes v
         on v.id_ruta = r.idRuta
@@ -278,8 +278,14 @@ module.exports = function(Viajes) {
 
     Viajes.postVariousTransactions = function(idRuta, fecha, busPlaca, tipoMovimiento, transacciones, cb){
         console.log("adding transactions");
+        app.models.Rutas.findOne({where: {idRuta: idRuta}}, function(err, ruta){
+            if(err) throw err;
+            else if(!ruta){
+                cb("Ruta not found", null);
+            }else{
+            console.log("costo: ",ruta.costo);
         app.models.Viajes.create(
-            { busPlaca : busPlaca, fecha : fecha, idRuta : idRuta, tipoMovimiento : tipoMovimiento}
+            { busPlaca : busPlaca, fecha : fecha, idRuta : idRuta, tipoMovimiento : tipoMovimiento, precio: ruta.costo}
             , function(err, models) {
 
                 if (err) throw err;
@@ -303,6 +309,9 @@ module.exports = function(Viajes) {
                     }
                 }
             });
+                
+            }
+        });
     }
 
     Viajes.remoteMethod('postVariousTransactions', {
