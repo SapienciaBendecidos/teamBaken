@@ -94,4 +94,78 @@ module.exports = function(app) {
         }
         );
         }
+
+        if (process.env.seed == 3 )
+    {
+
+        app.models.EquiposServicio.create(equipos_servicios
+            , function(err, models) {
+       
+                if (err) throw err;
+ 
+                console.log('Models created: \n', models);
+        });
+        
+        app.models.Clientes.create(clientsSeed
+            , function(err, models) {
+ 
+                if (err) throw err;
+ 
+                console.log('Models created: \n', models);
+        });
+
+ 
+        app.models.Tarjetas.create(cardsSeed
+            , function(err, models) {
+       
+                if (err) throw err;
+ 
+                console.log('Models created: \n', models);
+        });
+
+        app.models.Rutas.create(rutasSeed
+            , function(err, models) {
+       
+                if (err) throw err;
+ 
+                console.log('Models created: \n', models);
+        });
+
+        app.models.Viajes.create(viajesSeed
+            , function(err, models) {
+       
+                if (err) throw err;
+ 
+                console.log('Models created: \n', models);
+        });
+
+        app.models.Transacciones.create(transaccionesSeed
+            , function(err, models) {
+       
+                if (err) throw err;
+ 
+                console.log('Models created: \n', models);
+            });
+
+        app.models.Users.create([{ username: "administrador", firstName: 'Admin', firstSurname: 'Admin', password: "mipassword", email: "admin@hotmail.com", status: "active"}], function(err, users) {
+            if (err) throw err;
+            else if(!err && users){
+                console.log(users);
+                app.models.Role.create({name: 'admin'}, function(err, role) {
+                  if (err) throw err;
+                  else{
+                    role.principals.create({principalType: app.models.RoleMapping.USER, principalId: users[0].id}, function(err, principal) {
+                        if(err) throw err;
+                        else console.log("Admin creado: " + users[0].id);
+                    });
+                }
+            });
+
+                app.models.Role.create({name: 'cajero'}, function(err, role){if (err) throw err;});
+
+                app.models.Role.create({name: 'movil'}, function(err, role){if (err) throw err;});
+            }
+        }
+        );
+        }
     };
