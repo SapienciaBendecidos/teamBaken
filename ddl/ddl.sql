@@ -255,6 +255,7 @@ DROP TABLE IF EXISTS `tarjetas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tarjetas` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `id_tarjeta` varchar(255) NOT NULL,
   `saldo` int(11) NOT NULL,
   `estado` varchar(45) NOT NULL,
@@ -263,8 +264,8 @@ CREATE TABLE `tarjetas` (
   `fecha_actualizacion` datetime DEFAULT NULL,
   `creado_por` int(11) DEFAULT NULL,
   `actualizado_por` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_tarjeta`),
-  UNIQUE KEY `id_tarjeta_UNIQUE` (`id_tarjeta`),
+  PRIMARY KEY (`id`),
+  UNIQUE`id_tarjeta_UNIQUE` (`id_tarjeta`),
   KEY `fk_tarjetas_1_idx` (`creado_por`),
   KEY `fk_tarjetas_2_idx` (`actualizado_por`),
   CONSTRAINT `fk_tarjetas_1` FOREIGN KEY (`creado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
