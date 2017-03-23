@@ -14,8 +14,14 @@
       "createdAt": "fecha_creacion",
       "updatedAt": "fecha_actualizacion"
     },
-    "Audit" : {}
+    "Audit": {}
   },
+  "hidden": [
+    "fecha_actualizacion",
+    "fecha_creacion",
+    "creado_por",
+    "actualizado_por"
+  ],
   "properties": {
     "id": {
       "type": "Number",
@@ -52,36 +58,34 @@
     },
     "fecha_creacion": {
       "type": "Date",
-       "required": false,
-       "length": null,
-       "precision": null,
-       "scale": null,
-       "mysql": {
-         "columnName": "fecha_creacion",
-         "dataType": "datetime",
-         "dataLength": null,
-         "dataPrecision": null,
-         "dataScale": null,
-         "nullable": "Y"
-       }
-       ,
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "fecha_creacion",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      },
       "_selectable": false
     },
     "fecha_actualizacion": {
       "type": "Date",
-       "required": false,
-       "length": null,
-       "precision": null,
-       "scale": null,
-       "mysql": {
-         "columnName": "fecha_actualizacion",
-         "dataType": "datetime",
-         "dataLength": null,
-         "dataPrecision": null,
-         "dataScale": null,
-         "nullable": "Y"
-       }
-       ,
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "fecha_actualizacion",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      },
       "_selectable": false
     },
     "creado_por": {
@@ -151,6 +155,5 @@
       "permission": "DENY"
     }
   ],
-  "hidden" : ["fecha_actualizacion", "fecha_creacion", "creado_por", "actualizado_por"],
   "methods": {}
 }

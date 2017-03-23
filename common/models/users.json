@@ -12,6 +12,10 @@
       "updatedAt": "lastUpdated"
     }
   },
+  "hidden": [
+    "creado_por",
+    "actualizado_por"
+  ],
   "properties": {
     "firstName": {
       "type": "string",
@@ -60,7 +64,6 @@
       "_selectable": false
     }
   },
-  "hidden" : ["creado_por", "actualizado_por"],
   "validations": [],
   "relations": {
     "roles": {
