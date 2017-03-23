@@ -1,10 +1,11 @@
-CREATE DATABASE  IF NOT EXISTS `SBO` /*!40100 DEFAULT CHARACTER SET latin1 */;
+DROP DATABASE IF EXISTS `SBO`;
+CREATE DATABASE `SBO` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `SBO`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
 --
 -- Host: localhost    Database: SBO
 -- ------------------------------------------------------
--- Server version 5.7.17-0ubuntu0.16.04.1
+-- Server version	5.7.17-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -17,39 +18,6 @@ USE `SBO`;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `Users`
---
-
-DROP TABLE IF EXISTS `Users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(512) NOT NULL,
-  `secondName` varchar(512) DEFAULT NULL,
-  `firstSurname` varchar(512) NOT NULL,
-  `secondSurname` varchar(512) DEFAULT NULL,
-  `realm` varchar(512) DEFAULT NULL,
-  `username` varchar(512) DEFAULT NULL,
-  `password` varchar(512) NOT NULL,
-  `credentials` text,
-  `challenges` text,
-  `email` varchar(512) NOT NULL,
-  `emailVerified` tinyint(1) DEFAULT NULL,
-  `verificationToken` varchar(512) DEFAULT NULL,
-  `status` varchar(512) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  `lastUpdated` datetime DEFAULT NULL,
-  `creado_por` int(11) DEFAULT NULL,
-  `actualizado_por` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_Users_1_idx` (`creado_por`),
-  KEY `fk_Users_2_idx` (`actualizado_por`),
-  CONSTRAINT `fk_Users_1` FOREIGN KEY (`creado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Users_2` FOREIGN KEY (`actualizado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 --
 -- Table structure for table `ACL`
 --
@@ -99,7 +67,7 @@ CREATE TABLE `Role` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,7 +83,7 @@ CREATE TABLE `RoleMapping` (
   `principalId` varchar(512) DEFAULT NULL,
   `roleId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,9 +107,8 @@ CREATE TABLE `Rutas` (
   KEY `fk_Rutas_2_idx` (`actualizado_por`),
   CONSTRAINT `fk_Rutas_1` FOREIGN KEY (`creado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Rutas_2` FOREIGN KEY (`actualizado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `Transacciones`
@@ -151,23 +118,58 @@ DROP TABLE IF EXISTS `Transacciones`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Transacciones` (
-  `id_transaccion` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_viaje` int(10) unsigned NOT NULL,
-  `id_tarjeta` varchar(255) NOT NULL,
+  `id_transaccion` int(10) NOT NULL AUTO_INCREMENT,
+  `id_viaje` int(10) NOT NULL,
+  `id_tarjeta` int(10) NOT NULL,
   `fecha_creacion` datetime DEFAULT NULL,
   `fecha_actualizacion` datetime DEFAULT NULL,
   `creado_por` int(11) DEFAULT NULL,
   `actualizado_por` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_transaccion`),
   KEY `fk_Transacciones_1_idx` (`id_tarjeta`),
+  KEY `fk_Transacciones_4_idx` (`id_viaje`),
   KEY `fk_Transacciones_2_idx` (`creado_por`),
   KEY `fk_Transacciones_3_idx` (`actualizado_por`),
-  CONSTRAINT `fk_Transacciones_1` FOREIGN KEY (`id_tarjeta`) REFERENCES `tarjetas` (`id_tarjeta`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Transacciones_1` FOREIGN KEY (`id_tarjeta`) REFERENCES `tarjetas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Transacciones_2` FOREIGN KEY (`creado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Transacciones_3` FOREIGN KEY (`actualizado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_Transacciones_3` FOREIGN KEY (`actualizado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Transacciones_4` FOREIGN KEY (`id_viaje`) REFERENCES `Viajes` (`id_viaje`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `Users`
+--
+
+DROP TABLE IF EXISTS `Users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstName` varchar(512) NOT NULL,
+  `secondName` varchar(512) DEFAULT NULL,
+  `firstSurname` varchar(512) NOT NULL,
+  `secondSurname` varchar(512) DEFAULT NULL,
+  `realm` varchar(512) DEFAULT NULL,
+  `username` varchar(512) DEFAULT NULL,
+  `password` varchar(512) NOT NULL,
+  `credentials` text,
+  `challenges` text,
+  `email` varchar(512) NOT NULL,
+  `emailVerified` tinyint(1) DEFAULT NULL,
+  `verificationToken` varchar(512) DEFAULT NULL,
+  `status` varchar(512) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `lastUpdated` datetime DEFAULT NULL,
+  `creado_por` int(11) DEFAULT NULL,
+  `actualizado_por` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_Users_1_idx` (`creado_por`),
+  KEY `fk_Users_2_idx` (`actualizado_por`),
+  CONSTRAINT `fk_Users_1` FOREIGN KEY (`creado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Users_2` FOREIGN KEY (`actualizado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `Viajes`
@@ -177,7 +179,7 @@ DROP TABLE IF EXISTS `Viajes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Viajes` (
-  `id_viaje` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_viaje` int(10) NOT NULL AUTO_INCREMENT,
   `bus_placa` varchar(45) NOT NULL,
   `id_ruta` int(10) unsigned NOT NULL,
   `fecha` datetime NOT NULL,
@@ -194,7 +196,7 @@ CREATE TABLE `Viajes` (
   CONSTRAINT `fk_Viajes_1` FOREIGN KEY (`creado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Viajes_2` FOREIGN KEY (`actualizado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Viajes_Ruta` FOREIGN KEY (`id_ruta`) REFERENCES `Rutas` (`idRuta`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +224,7 @@ CREATE TABLE `clientes` (
   CONSTRAINT `fk_clientes_1` FOREIGN KEY (`id_servidor`) REFERENCES `equipos_servicio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_clientes_2` FOREIGN KEY (`creado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_clientes_3` FOREIGN KEY (`actualizado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,7 +246,7 @@ CREATE TABLE `equipos_servicio` (
   KEY `fk_equipos_servicio_2_idx` (`actualizado_por`),
   CONSTRAINT `fk_equipos_servicio_1` FOREIGN KEY (`creado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_equipos_servicio_2` FOREIGN KEY (`actualizado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -255,6 +257,7 @@ DROP TABLE IF EXISTS `tarjetas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tarjetas` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `id_tarjeta` varchar(255) NOT NULL,
   `saldo` int(11) NOT NULL,
   `estado` varchar(45) NOT NULL,
@@ -263,7 +266,7 @@ CREATE TABLE `tarjetas` (
   `fecha_actualizacion` datetime DEFAULT NULL,
   `creado_por` int(11) DEFAULT NULL,
   `actualizado_por` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_tarjeta`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `id_tarjeta_UNIQUE` (`id_tarjeta`),
   KEY `fk_tarjetas_1_idx` (`creado_por`),
   KEY `fk_tarjetas_2_idx` (`actualizado_por`),
@@ -271,7 +274,6 @@ CREATE TABLE `tarjetas` (
   CONSTRAINT `fk_tarjetas_2` FOREIGN KEY (`actualizado_por`) REFERENCES `Users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -282,4 +284,4 @@ CREATE TABLE `tarjetas` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-23 23:31:55
+-- Dump completed on 2017-03-23  0:08:29
