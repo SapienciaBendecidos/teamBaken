@@ -14,53 +14,51 @@ module.exports = function(app) {
 
         app.models.EquiposServicio.create(equipos_servicios
             , function(err, models) {
+
+                app.models.Rutas.create(rutasSeed
+                    , function(err, models) {
+               
+                        if (err) throw err;
+
+                        app.models.Viajes.create(viajesSeed
+                            , function(err, models) {
+
+                                app.models.Clientes.create(clientsSeed
+                                , function(err, models) {
+                     
+                                    if (err) throw err;
+
+                                    app.models.Tarjetas.create(cardsSeed
+                                        , function(err, models) {
+                           
+                                        if (err) throw err;
+
+                                        app.models.Transacciones.create(transaccionesSeed
+                                        , function(err, models) {
+                           
+                                            if (err) throw err;
+                     
+                                            console.log('Models created: \n', models);
+                                        });
+                     
+                                        console.log('Models created: \n', models);
+                                });
+                     
+                                    console.log('Models created: \n', models);
+                            });
+               
+                            if (err) throw err;
+         
+                            console.log('Models created: \n', models);
+                    });
+         
+                        console.log('Models created: \n', models);
+                });
        
                 if (err) throw err;
  
                 console.log('Models created: \n', models);
         });
-
-        app.models.Rutas.create(rutasSeed
-            , function(err, models) {
-       
-                if (err) throw err;
- 
-                console.log('Models created: \n', models);
-        });
-        
-        app.models.Clientes.create(clientsSeed
-            , function(err, models) {
- 
-                if (err) throw err;
- 
-                console.log('Models created: \n', models);
-        });
-
- 
-        app.models.Tarjetas.create(cardsSeed
-            , function(err, models) {
-       
-                if (err) throw err;
- 
-                console.log('Models created: \n', models);
-        });
-
-
-        app.models.Viajes.create(viajesSeed
-            , function(err, models) {
-       
-                if (err) throw err;
- 
-                console.log('Models created: \n', models);
-        });
-
-        app.models.Transacciones.create(transaccionesSeed
-            , function(err, models) {
-       
-                if (err) throw err;
- 
-                console.log('Models created: \n', models);
-            });
 
         app.models.Users.create([{ username: "nasty", firstName: 'Brandon', firstSurname: 'Napkin', password: "mipassword", email: "nasky@hotmail.com", status: "active"},{ username: "joshua", firstName: 'Josue', firstSurname: 'Enamorado', password: "mipassword", email: "joshua@hotmail.com", status: "active"},{ username: "chus", firstName: 'Chungo', firstSurname: 'Murillo', password: "mipassword", email: "chungo@hotmail.com", status: "active"}], function(err, users) {
             if (err) throw err;
@@ -100,56 +98,53 @@ module.exports = function(app) {
 
         if (process.env.seed == 3 )
     {
-
         app.models.EquiposServicio.create(equipos_servicios
             , function(err, models) {
+
+                app.models.Rutas.create(rutasSeedProduccion
+                    , function(err, models) {
+               
+                        if (err) throw err;
+
+                        app.models.Viajes.create(viajesSeedProduccion
+                            , function(err, models) {
+
+                                app.models.Clientes.create(clientsSeed
+                                , function(err, models) {
+                     
+                                    if (err) throw err;
+
+                                    app.models.Tarjetas.create(cardsSeed
+                                        , function(err, models) {
+                           
+                                        if (err) throw err;
+
+                                        app.models.Transacciones.create(transaccionesSeed
+                                        , function(err, models) {
+                           
+                                            if (err) throw err;
+                     
+                                            console.log('Models created: \n', models);
+                                        });
+                     
+                                        console.log('Models created: \n', models);
+                                });
+                     
+                                    console.log('Models created: \n', models);
+                            });
+               
+                            if (err) throw err;
+         
+                            console.log('Models created: \n', models);
+                    });
+         
+                        console.log('Models created: \n', models);
+                });
        
                 if (err) throw err;
  
                 console.log('Models created: \n', models);
         });
-
-        app.models.Rutas.create(rutasSeedProduccion
-            , function(err, models) {
-       
-                if (err) throw err;
- 
-                console.log('Models created: \n', models);
-        });
-        
-        app.models.Clientes.create(clientsSeed
-            , function(err, models) {
- 
-                if (err) throw err;
- 
-                console.log('Models created: \n', models);
-        });
-
- 
-        app.models.Tarjetas.create(cardsSeed
-            , function(err, models) {
-       
-                if (err) throw err;
- 
-                console.log('Models created: \n', models);
-        });
-
-
-        app.models.Viajes.create(viajesSeedProduccion
-            , function(err, models) {
-       
-                if (err) throw err;
- 
-                console.log('Models created: \n', models);
-        });
-
-        app.models.Transacciones.create(transaccionesSeed
-            , function(err, models) {
-       
-                if (err) throw err;
- 
-                console.log('Models created: \n', models);
-            });
 
         app.models.Users.create([{ username: "administrador", firstName: 'Admin', firstSurname: 'Admin', password: "mipassword", email: "admin@hotmail.com", status: "active"}], function(err, users) {
             if (err) throw err;
