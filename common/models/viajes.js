@@ -53,7 +53,7 @@ module.exports = function(Viajes) {
         from SBO.Transacciones t
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
-        where (v.fecha between ? and ?) or r.nombre REGEXP ?
+        where (v.fecha >= ? and v.fecha <= ?) or r.nombre REGEXP ?
         or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc) tabla;
         `;
 
@@ -108,7 +108,7 @@ module.exports = function(Viajes) {
         from SBO.Transacciones t
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
-        where (v.fecha between ? and ?) or r.nombre REGEXP ?
+        where (v.fecha >= ? and fecha.v <= ?) or r.nombre REGEXP ?
         or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
         limit ?,? ) tabla;
         `;
@@ -192,7 +192,7 @@ module.exports = function(Viajes) {
         from SBO.Transacciones t
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
-        where (v.fecha between ? and ?) or r.nombre REGEXP ?
+        where (v.fecha >= ? and fecha.v <= ?) or r.nombre REGEXP ?
         or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc) tabla
         `;
 
@@ -223,7 +223,7 @@ module.exports = function(Viajes) {
         from SBO.Transacciones t
         group by t.id_viaje) s
         on s.id_viaje = v.id_viaje
-        where (v.fecha between ? and ?) or r.nombre REGEXP ?
+        where (v.fecha >= ? and fecha.v <= ?) or r.nombre REGEXP ?
         or v.tipo_movimiento REGEXP ? or v.bus_placa REGEXP ? ORDER by v.fecha asc
         limit ?,?) tabla;
         `;
