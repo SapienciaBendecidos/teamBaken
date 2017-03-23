@@ -176,7 +176,7 @@
     "transacciones": {
       "type": "hasMany",
       "model": "Transacciones",
-      "foreignKey": "idTarjeta"
+      "foreignKey": "id"
     }
   },
   "acls": [
