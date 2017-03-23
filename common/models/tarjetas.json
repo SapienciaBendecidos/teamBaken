@@ -179,7 +179,7 @@
     "transacciones": {
       "type": "hasMany",
       "model": "Transacciones",
-      "foreignKey": "id"
+      "foreignKey": "idTransaccion"
     }
   },
   "acls": [
