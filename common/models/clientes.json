@@ -14,8 +14,14 @@
       "createdAt": "fecha_creacion",
       "updatedAt": "fecha_actualizacion"
     },
-    "Audit" : {}
+    "Audit": {}
   },
+  "hidden": [
+    "fecha_actualizacion",
+    "fecha_creacion",
+    "creado_por",
+    "actualizado_por"
+  ],
   "properties": {
     "idCliente": {
       "type": "Number",
@@ -179,7 +185,6 @@
       "_selectable": false
     }
   },
-  "hidden" : ["fecha_actualizacion", "fecha_creacion", "creado_por", "actualizado_por"],
   "validations": [],
   "relations": {
     "tarjetas": {

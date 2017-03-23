@@ -14,12 +14,34 @@
       "createdAt": "fecha_creacion",
       "updatedAt": "fecha_actualizacion"
     },
-    "Audit" : {}
+    "Audit": {}
   },
+  "hidden": [
+    "fecha_actualizacion",
+    "fecha_creacion",
+    "creado_por",
+    "actualizado_por"
+  ],
   "properties": {
+    "id": {
+      "type": "Number",
+      "id": true,
+      "required": false,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "N"
+      },
+      "_selectable": false
+    },
     "idTarjeta": {
       "type": "String",
-      "id": true,
       "required": true,
       "length": 45,
       "precision": null,
@@ -84,36 +106,34 @@
     },
     "fecha_creacion": {
       "type": "Date",
-       "required": false,
-       "length": null,
-       "precision": null,
-       "scale": null,
-       "mysql": {
-         "columnName": "fecha_creacion",
-         "dataType": "datetime",
-         "dataLength": null,
-         "dataPrecision": null,
-         "dataScale": null,
-         "nullable": "Y"
-       }
-       ,
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "fecha_creacion",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      },
       "_selectable": false
     },
     "fecha_actualizacion": {
       "type": "Date",
-       "required": false,
-       "length": null,
-       "precision": null,
-       "scale": null,
-       "mysql": {
-         "columnName": "fecha_actualizacion",
-         "dataType": "datetime",
-         "dataLength": null,
-         "dataPrecision": null,
-         "dataScale": null,
-         "nullable": "Y"
-       }
-       ,
+      "required": false,
+      "length": null,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "fecha_actualizacion",
+        "dataType": "datetime",
+        "dataLength": null,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      },
       "_selectable": false
     },
     "creado_por": {
@@ -149,7 +169,6 @@
       "_selectable": false
     }
   },
-  "hidden" : ["fecha_actualizacion", "fecha_creacion", "creado_por", "actualizado_por"],
   "validations": [],
   "relations": {
     "clientes": {
@@ -160,7 +179,7 @@
     "transacciones": {
       "type": "hasMany",
       "model": "Transacciones",
-      "foreignKey": "idTarjeta"
+      "foreignKey": "id"
     }
   },
   "acls": [
